@@ -1,8 +1,11 @@
 import { combineReducers } from "redux";
-import { courseReducer } from "./courseReducer";
+import { courseListReducer, courseDetailReducer } from "./courseReducer";
+import { userScoreReducer } from "./userReducer";
 
 const RootReducer = combineReducers({
-  courseList: courseReducer,
+  courseList: courseListReducer,
+  courseDetail: courseDetailReducer,
+  userScore: userScoreReducer
 });
 
 export default RootReducer;

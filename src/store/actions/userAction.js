@@ -1,27 +1,27 @@
 import axios from "axios";
 
-export const getCourseList = (payload) => async (dispatch) => {
+export const getScoresByCourse = (payload) => async (dispatch) => {
   try {
     dispatch({
-      type: "GET_COURSE_LIST_LOADING",
+      type: "GET_SCORES_LOADING",
     });
 
     const res = await axios.get(
-      `https://django-point-management.herokuapp.com/course/`,
+      `https://django-point-management.herokuapp.com/user/get_scores_of_course/?course_id=${payload.id}`,
       {
         headers: {
-          Authorization: `Bearer DCNKGkP0f0YmaWZbSwNAAX89bZOCVg`,
+          Authorization: `Bearer ccDKxlFreEZodhhaVlMX7jk1tQONO4`,
         },
       }
     );
 
     dispatch({
-      type: "GET_COURSE_LIST_SUCCESS",
+      type: "GET_SCORES_SUCCESS",
       payload: res.data,
     });
   } catch (e) {
     dispatch({
-      type: "GET_COURSE_LIST_FAIL",
+      type: "GET_SCORES_FAIL",
     });
   }
 };
@@ -51,23 +51,3 @@ export const getCourseDetail = (payload) => async (dispatch) => {
     });
   }
 };
-
-// export const GetPokemon = (pokemon) => async (dispatch) => {
-//   try {
-//     dispatch({
-//       type: "POKEMON_MULTIPLE_LOADING",
-//     });
-
-//     const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-
-//     dispatch({
-//       type: "POKEMON_MULTIPLE_SUCCESS",
-//       payload: res.data,
-//       pokemonName: pokemon,
-//     });
-//   } catch (e) {
-//     dispatch({
-//       type: "POKEMON_MULTIPLE_FAIL",
-//     });
-//   }
-// };

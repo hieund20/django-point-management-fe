@@ -5,7 +5,7 @@ const defaultState = {
   count: 0,
 };
 
-export const courseReducer = (state = defaultState, action) => {
+export const courseListReducer = (state = defaultState, action) => {
   switch (action.type) {
     case "GET_COURSE_LIST_LOADING":
       return {
@@ -26,6 +26,32 @@ export const courseReducer = (state = defaultState, action) => {
         ...state,
         loading: false,
         errorMsg: "Lỗi khi lấy danh sách khóa học",
+      };
+    default:
+      return state;
+  }
+};
+
+export const courseDetailReducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case "GET_COURSE_DETAIL_LOADING":
+      return {
+        ...state,
+        loading: true,
+        errorMsg: "",
+      };
+    case "GET_COURSE_DETAIL_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+        errorMsg: "",
+      };
+    case "GET_COURSE_DETAIL_FAIL":
+      return {
+        ...state,
+        loading: false,
+        errorMsg: "Lỗi khi lấy chi tiết khóa học",
       };
     default:
       return state;

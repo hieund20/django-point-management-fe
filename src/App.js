@@ -7,6 +7,7 @@ import Home from "./pages/home";
 import Navbar from "./sharedComponents/navbar";
 import Footer from "./sharedComponents/footer";
 import MyCourses from "./pages/my-courses";
+import CourseDetail from "./pages/course-detail";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route exact path="/" element={<Home />}></Route>
           <Route exact path="/my-course" element={<MyCourses />}></Route>
+          <Route exact path="/my-course/:id" element={<CourseDetail />}></Route>
         </Routes>
       </Router>
       <Footer />
