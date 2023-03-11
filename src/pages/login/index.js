@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import './style.scss';
 
 const Login = (props) => {
   const { register, handleSubmit } = useForm();
