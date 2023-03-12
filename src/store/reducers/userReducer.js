@@ -31,3 +31,29 @@ export const userScoreReducer = (state = defaultState, action) => {
       return state;
   }
 };
+
+export const registerUserReducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case "REGISTER_USER_LOADING":
+      return {
+        ...state,
+        loading: true,
+        errorMsg: "",
+      };
+    case "REGISTER_USER_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+        errorMsg: "",
+      };
+    case "REGISTER_USER_FAIL":
+      return {
+        ...state,
+        loading: false,
+        errorMsg: "Lỗi đăng ký tài khoản người dùng",
+      };
+    default:
+      return state;
+  }
+};

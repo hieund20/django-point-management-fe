@@ -51,3 +51,32 @@ export const getCourseDetail = (payload) => async (dispatch) => {
     });
   }
 };
+
+export const registerUser = (payload) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "REGISTER_USER_LOADING",
+    });
+
+    const res = await axios.post(
+      `https://django-point-management.herokuapp.com/user/`,
+      {
+        ...payload.body,
+      },
+      {
+        headers: {
+          Authorization: `Bearer sYKq4kOQmXDl3ogsHm2DTOQUwIaXWU`,
+        },
+      }
+    );
+
+    dispatch({
+      type: "REGISTER_USER_SUCCESS",
+      payload: res.data,
+    });
+  } catch (e) {
+    dispatch({
+      type: "REGISTER_USER_FAIL",
+    });
+  }
+};
