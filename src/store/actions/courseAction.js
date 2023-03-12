@@ -6,11 +6,13 @@ export const getCourseList = (payload) => async (dispatch) => {
       type: "GET_COURSE_LIST_LOADING",
     });
 
+    const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
+    const { access_token, token_type } = outh2;
     const res = await axios.get(
       `https://django-point-management.herokuapp.com/course/`,
       {
         headers: {
-          Authorization: `Bearer QfztThMGIyvuKlHn7RYXa96KvHrQ5L`,
+          Authorization: `${token_type} ${access_token}`,
         },
       }
     );
@@ -32,11 +34,13 @@ export const getCourseDetail = (payload) => async (dispatch) => {
       type: "GET_COURSE_DETAIL_LOADING",
     });
 
+    const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
+    const { access_token, token_type } = outh2;
     const res = await axios.get(
       `https://django-point-management.herokuapp.com/course/${payload.id}/`,
       {
         headers: {
-          Authorization: `Bearer QfztThMGIyvuKlHn7RYXa96KvHrQ5L`,
+          Authorization: `${token_type} ${access_token}`,
         },
       }
     );
@@ -58,11 +62,13 @@ export const getCourseMembers = (payload) => async (dispatch) => {
       type: "GET_COURSE_MEMBER_LOADING",
     });
 
+    const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
+    const { access_token, token_type } = outh2;
     const res = await axios.get(
       `https://django-point-management.herokuapp.com/course/${payload.id}/get_member/`,
       {
         headers: {
-          Authorization: `Bearer QfztThMGIyvuKlHn7RYXa96KvHrQ5L`,
+          Authorization: `${token_type} ${access_token}`,
         },
       }
     );
@@ -77,23 +83,3 @@ export const getCourseMembers = (payload) => async (dispatch) => {
     });
   }
 };
-
-// export const GetPokemon = (pokemon) => async (dispatch) => {
-//   try {
-//     dispatch({
-//       type: "POKEMON_MULTIPLE_LOADING",
-//     });
-
-//     const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-
-//     dispatch({
-//       type: "POKEMON_MULTIPLE_SUCCESS",
-//       payload: res.data,
-//       pokemonName: pokemon,
-//     });
-//   } catch (e) {
-//     dispatch({
-//       type: "POKEMON_MULTIPLE_FAIL",
-//     });
-//   }
-// };

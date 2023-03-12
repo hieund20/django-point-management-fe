@@ -57,3 +57,29 @@ export const registerUserReducer = (state = defaultState, action) => {
       return state;
   }
 };
+
+export const loginUserReducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case "LOGIN_USER_LOADING":
+      return {
+        ...state,
+        loading: true,
+        errorMsg: "",
+      };
+    case "LOGIN_USER_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+        errorMsg: "",
+      };
+    case "LOGIN_USER_FAIL":
+      return {
+        ...state,
+        loading: false,
+        errorMsg: "Lỗi đăng nhập",
+      };
+    default:
+      return state;
+  }
+};

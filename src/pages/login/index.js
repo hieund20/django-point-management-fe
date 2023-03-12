@@ -1,11 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { CLIENT_ID, CLIENT_SECRET, GRANT_TYPE } from "../../config/constants";
+import Toast from "../../sharedComponents/toast";
+import { loginUser } from "../../store/actions/userAction";
 import "./style.scss";
 
 const Login = (props) => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [toast, setToast] = useState(null);
+
+  const onSubmit = async (data) => {
+    const { username, password } = data;
+
+    let isInvalid = false;
+    if (!username || !password) {
+      setErrorMessage("Bạn phải nhập đủ thông tin cho các trường");
+      isInvalid = true;
+    }
+
+    if (!isInvalid) {
+      const res = await dispatch(
+        loginUser({
+          body: {
+            grant_type: GRANT_TYPE,
+            username: username,
+            password: password,
+            client_id: CLIENT_ID,
+            client_secret: CLIENT_SECRET,
+          },
+        })
+      );
+
+      if (res && res.status === 200) {
+        setToast(<Toast message={"Đăng nhập thành công"} success={true} />);
+        //Set LocalStorage
+        localStorage.setItem("OAUTH2", JSON.stringify(res.data));
+        //Redirect to home page
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
+      } else {
+        setToast(
+          <Toast
+            message={`${res.status} - ${res.statusText}`}
+            success={false}
+          />
+        );
+      }
+      setErrorMessage("");
+    }
+  };
 
   return (
     <div className="login main-container">
@@ -34,9 +83,21 @@ const Login = (props) => {
               </label>
             </div>
             <div className="col-8">
-              <input {...register("password")} style={{ width: "100%" }} />
+              <input
+                {...register("password")}
+                style={{ width: "100%" }}
+                type="password"
+              />
             </div>
           </div>
+
+          {/* Error message */}
+          {errorMessage && (
+            <p className="mt-4 mb-4" style={{ color: "red" }}>
+              {errorMessage}
+            </p>
+          )}
+
           <input
             className="cursor-pointer"
             style={{ width: "100%", height: 50 }}
@@ -49,6 +110,7 @@ const Login = (props) => {
           Đã có tài khoản <Link to={"/register"}>Đăng ký</Link>
         </p>
       </div>
+      {toast}
     </div>
   );
 };

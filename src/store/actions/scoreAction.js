@@ -6,12 +6,14 @@ export const postUserScore = (payload) => async (dispatch) => {
       type: "POST_USER_SCORE_LOADING",
     });
 
+    const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
+    const { access_token, token_type } = outh2;
     const res = await axios.post(
       `https://django-point-management.herokuapp.com/score/`,
       { ...payload.body },
       {
         headers: {
-          Authorization: `Bearer QfztThMGIyvuKlHn7RYXa96KvHrQ5L`,
+          Authorization: `${token_type} ${access_token}`,
         },
       }
     );
