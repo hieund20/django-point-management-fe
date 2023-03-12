@@ -57,3 +57,29 @@ export const courseDetailReducer = (state = defaultState, action) => {
       return state;
   }
 };
+
+export const courseMemberReducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case "GET_COURSE_MEMBER_LOADING":
+      return {
+        ...state,
+        loading: true,
+        errorMsg: "",
+      };
+    case "GET_COURSE_MEMBER_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+        errorMsg: "",
+      };
+    case "GET_COURSE_MEMBER_FAIL":
+      return {
+        ...state,
+        loading: false,
+        errorMsg: "Lỗi khi lấy danh sách thành viên trong khóa học",
+      };
+    default:
+      return state;
+  }
+};

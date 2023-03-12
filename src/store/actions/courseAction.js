@@ -10,7 +10,7 @@ export const getCourseList = (payload) => async (dispatch) => {
       `https://django-point-management.herokuapp.com/course/`,
       {
         headers: {
-          Authorization: `Bearer DCNKGkP0f0YmaWZbSwNAAX89bZOCVg`,
+          Authorization: `Bearer SGVRj1WUdn8t2BjMKQ61qWOEc08vjo`,
         },
       }
     );
@@ -36,7 +36,7 @@ export const getCourseDetail = (payload) => async (dispatch) => {
       `https://django-point-management.herokuapp.com/course/${payload.id}/`,
       {
         headers: {
-          Authorization: `Bearer DCNKGkP0f0YmaWZbSwNAAX89bZOCVg`,
+          Authorization: `Bearer SGVRj1WUdn8t2BjMKQ61qWOEc08vjo`,
         },
       }
     );
@@ -48,6 +48,32 @@ export const getCourseDetail = (payload) => async (dispatch) => {
   } catch (e) {
     dispatch({
       type: "GET_COURSE_DETAIL_FAIL",
+    });
+  }
+};
+
+export const getCourseMembers = (payload) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "GET_COURSE_MEMBER_LOADING",
+    });
+
+    const res = await axios.get(
+      `https://django-point-management.herokuapp.com/course/${payload.id}/get_member/`,
+      {
+        headers: {
+          Authorization: `Bearer SGVRj1WUdn8t2BjMKQ61qWOEc08vjo`,
+        },
+      }
+    );
+
+    dispatch({
+      type: "GET_COURSE_MEMBER_SUCCESS",
+      payload: res.data,
+    });
+  } catch (e) {
+    dispatch({
+      type: "GET_COURSE_MEMBER_FAIL",
     });
   }
 };

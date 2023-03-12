@@ -8,6 +8,7 @@ import Navbar from "./sharedComponents/navbar";
 import Footer from "./sharedComponents/footer";
 import MyCourses from "./pages/my-courses";
 import CourseDetail from "./pages/course-detail";
+import InputScore from "./pages/input-scores";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/" element={<Home />}></Route>
           <Route exact path="/my-course" element={<MyCourses />}></Route>
           <Route exact path="/my-course/:id" element={<CourseDetail />}></Route>
+          <Route exact path="/my-course/input-scores/:course_id/user/:user_id" element={<InputScore />}></Route>
         </Routes>
       </Router>
       <Footer />

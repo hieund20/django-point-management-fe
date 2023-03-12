@@ -10,7 +10,7 @@ export const getScoresByCourse = (payload) => async (dispatch) => {
       `https://django-point-management.herokuapp.com/user/get_scores_of_course/?course_id=${payload.id}`,
       {
         headers: {
-          Authorization: `Bearer ccDKxlFreEZodhhaVlMX7jk1tQONO4`,
+          Authorization: `Bearer SGVRj1WUdn8t2BjMKQ61qWOEc08vjo`,
         },
       }
     );
@@ -36,7 +36,7 @@ export const getCourseDetail = (payload) => async (dispatch) => {
       `https://django-point-management.herokuapp.com/course/${payload.id}/`,
       {
         headers: {
-          Authorization: `Bearer DCNKGkP0f0YmaWZbSwNAAX89bZOCVg`,
+          Authorization: `Bearer SGVRj1WUdn8t2BjMKQ61qWOEc08vjo`,
         },
       }
     );
