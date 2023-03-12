@@ -19,7 +19,6 @@ export const postUserScoreReducer = (state = defaultState, action) => {
         loading: false,
         data: action.payload,
         errorMsg: "",
-        count: action.payload.count,
       };
     case "POST_USER_SCORE_FAIL":
       return {

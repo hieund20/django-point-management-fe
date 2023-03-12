@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import Toast from "../../sharedComponents/toast";
 import { postUserScore } from "../../store/actions/scoreAction";
 
 const InputScore = (props) => {
@@ -9,20 +10,25 @@ const InputScore = (props) => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const userScore = useSelector((state) => state.postUserScore);
+  const [toast, setToast] = useState(null);
 
   const onSubmit = async (data) => {
-    console.log(data);
     const body = {
       ...data,
       user_id: user_id,
       course_id: course_id,
     };
-    dispatch(postUserScore({ body: body }));
+    await dispatch(postUserScore({ body: body }));
   };
 
-  console.log(course_id, user_id);
   useEffect(() => {
-    console.log(userScore);
+    if (!userScore.errorMsg) {
+      setToast(
+        <Toast message={"Lưu điểm sinh viên thành công"} success={true} />
+      );
+    } else {
+      setToast(<Toast message={userScore.errorMsg} success={false} />);
+    }
   }, [userScore]);
 
   return (
@@ -141,6 +147,7 @@ const InputScore = (props) => {
           value={"Lưu thay đổi"}
         />
       </form>
+      {toast}
     </div>
   );
 };

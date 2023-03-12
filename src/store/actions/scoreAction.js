@@ -11,7 +11,7 @@ export const postUserScore = (payload) => async (dispatch) => {
       { ...payload.body },
       {
         headers: {
-          Authorization: `Bearer SGVRj1WUdn8t2BjMKQ61qWOEc08vjo`,
+          Authorization: `Bearer QfztThMGIyvuKlHn7RYXa96KvHrQ5L`,
         },
       }
     );
