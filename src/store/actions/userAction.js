@@ -74,6 +74,8 @@ export const registerUser = (payload) => async (dispatch) => {
       type: "REGISTER_USER_SUCCESS",
       payload: res.data,
     });
+    
+    return res;
   } catch (e) {
     dispatch({
       type: "REGISTER_USER_FAIL",

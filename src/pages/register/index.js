@@ -10,7 +10,6 @@ const Register = (props) => {
   const { register, handleSubmit } = useForm();
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
-  const newUser = useSelector((state) => state.registerUser);
   const navigate = useNavigate();
   const [toast, setToast] = useState(null);
 
@@ -24,10 +23,8 @@ const Register = (props) => {
       password,
       confirm_password,
     } = data;
-    console.log(data);
 
     let isInvalid = false;
-
     if (
       !last_name ||
       !first_name ||
@@ -61,28 +58,31 @@ const Register = (props) => {
         password: password,
       };
       if (!className) delete body.className;
-      await dispatch(registerUser({ body: body }));
+
+      const res = await dispatch(registerUser({ body: body }));
+      if (res && res.status === 201) {
+        setToast(
+          <Toast
+            message={
+              "Đăng ký tài khoản sinh viên thành công. Chuyển hướng đăng nhập..."
+            }
+            success={true}
+          />
+        );
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+      } else {
+        setToast(
+          <Toast
+            message={`${res.status} - ${res.statusText}`}
+            success={false}
+          />
+        );
+      }
       setErrorMessage("");
     }
   };
-
-  useEffect(() => {
-    if (!newUser.errorMsg) {
-      setToast(
-        <Toast
-          message={
-            "Đăng ký tài khoản sinh viên thành công. Chuyển hướng đăng nhập..."
-          }
-          success={true}
-        />
-      );
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
-    } else {
-      setToast(<Toast message={newUser.errorMsg} success={false} />);
-    }
-  }, [newUser]);
 
   return (
     <div className="register main-container">

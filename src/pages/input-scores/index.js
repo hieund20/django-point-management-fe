@@ -9,7 +9,6 @@ const InputScore = (props) => {
   let { course_id, user_id } = useParams();
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
-  const userScore = useSelector((state) => state.postUserScore);
   const [toast, setToast] = useState(null);
 
   const onSubmit = async (data) => {
@@ -18,18 +17,18 @@ const InputScore = (props) => {
       user_id: user_id,
       course_id: course_id,
     };
-    await dispatch(postUserScore({ body: body }));
-  };
 
-  useEffect(() => {
-    if (!userScore.errorMsg) {
+    const res = await dispatch(postUserScore({ body: body }));
+    if (res && res.status === 201) {
       setToast(
         <Toast message={"Lưu điểm sinh viên thành công"} success={true} />
       );
     } else {
-      setToast(<Toast message={userScore.errorMsg} success={false} />);
+      setToast(
+        <Toast message={`${res.status} - ${res.statusText}`} success={false} />
+      );
     }
-  }, [userScore]);
+  };
 
   return (
     <div className="input-score main-container">

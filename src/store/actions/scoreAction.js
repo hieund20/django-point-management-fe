@@ -20,6 +20,7 @@ export const postUserScore = (payload) => async (dispatch) => {
       type: "POST_USER_SCORE_SUCCESS",
       payload: res.data,
     });
+    return res;
   } catch (e) {
     dispatch({
       type: "POST_USER_SCORE_FAIL",
