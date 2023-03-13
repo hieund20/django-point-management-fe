@@ -15,6 +15,8 @@ const CourseDetail = (props) => {
   const courseDetail = useSelector((state) => state.courseDetail);
   const userScore = useSelector((state) => state.userScore);
   const courseMembers = useSelector((state) => state.courseMembers);
+  const currentUser = useSelector((state) => state.userDetail);
+  const { data } = currentUser;
   let { id } = useParams();
   const [currentTab, setCurrentTab] = useState(0);
 
@@ -56,7 +58,7 @@ const CourseDetail = (props) => {
                     <th scope="col">Email</th>
                     <th scope="col">Vai trò</th>
                     <th scope="col">Lớp sinh viên</th>
-                    <th scope="col"></th>
+                    {data.is_staff && <th scope="col"></th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -70,22 +72,24 @@ const CourseDetail = (props) => {
                         <td>{el.email || "--"}</td>
                         <td>{el.is_staff ? "Giảng viên" : "Sinh viên"}</td>
                         <td>{el.className || "--"}</td>
-                        <td className="d-flex align-items-center">
-                          <Link
-                            className="cursor-pointer"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="Nhập điểm sinh viên"
-                            to={`/my-course/input-scores/${id}/user/${el.id}`}
-                          >
-                            <img
-                              src={editIcon}
-                              alt="edit-icon"
-                              width={18}
-                              height={18}
-                            />
-                          </Link>
-                        </td>
+                        {data.is_staff && (
+                          <td className="d-flex align-items-center">
+                            <Link
+                              className="cursor-pointer"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title="Nhập điểm sinh viên"
+                              to={`/my-course/input-scores/${id}/user/${el.id}`}
+                            >
+                              <img
+                                src={editIcon}
+                                alt="edit-icon"
+                                width={18}
+                                height={18}
+                              />
+                            </Link>
+                          </td>
+                        )}
                       </tr>
                     ))}
                 </tbody>

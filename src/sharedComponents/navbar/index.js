@@ -1,14 +1,30 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { defaultAvatar } from "../../assets/image";
+import { logoutUser } from "../../store/actions/userAction";
 import "./style.scss";
 
 const Navbar = (props) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.userDetail);
+  const { data } = currentUser;
+
+  const logout = () => {
+    localStorage.clear();
+    dispatch(logoutUser());
+    setTimeout(() => {
+      navigate("/login");
+    }, 3000);
+  };
+
   return (
     <div className="navbar-container">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/my-course">
           E-Point Management
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -21,13 +37,8 @@ const Navbar = (props) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav">
+          <ul className="navbar-nav d-flex align-items-center">
             <li className="nav-item active">
-              <Link className="nav-link" to="/">
-                <span>Trang chủ</span>
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link" to="/my-course">
                 <span>Các khóa học của tôi</span>
               </Link>
@@ -42,32 +53,42 @@ const Navbar = (props) => {
                 <span>Đăng nhập</span>
               </Link>
             </li>
-            {/* <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdownMenuLink"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
+            {data && (
+              <li
+                className="nav-item dropdown"
+                style={{ float: "right", marginLeft: "auto" }}
               >
-                Dropdown link
-              </a>
-              <div
-                className="dropdown-menu"
-                aria-labelledby="navbarDropdownMenuLink"
-              >
-                <a className="dropdown-item" href="#">
-                  Action
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <img
+                    src={defaultAvatar}
+                    alt="avatar"
+                    width={20}
+                    height={20}
+                    style={{ marginRight: 8, borderRadius: "50%" }}
+                  />
+                  {data.email}
                 </a>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </div>
-            </li> */}
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    onClick={() => logout()}
+                  >
+                    Đăng xuất
+                  </a>
+                </div>
+              </li>
+            )}
           </ul>
         </div>
       </nav>

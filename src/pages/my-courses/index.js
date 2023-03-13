@@ -15,8 +15,6 @@ const MyCourses = (props) => {
     fetchCourseList();
   }, []);
 
-  // console.log("courseList", courseList);
-
   return (
     <div className="my-courses main-container">
       <h3 className="mb-5">Các khóa học của tôi</h3>

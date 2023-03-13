@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { CLIENT_ID, CLIENT_SECRET, GRANT_TYPE } from "../../config/constants";
 import Toast from "../../sharedComponents/toast";
-import { loginUser } from "../../store/actions/userAction";
+import { getUserDetail, loginUser } from "../../store/actions/userAction";
 import "./style.scss";
 
 const Login = (props) => {
@@ -40,9 +40,14 @@ const Login = (props) => {
         setToast(<Toast message={"Đăng nhập thành công"} success={true} />);
         //Set LocalStorage
         localStorage.setItem("OAUTH2", JSON.stringify(res.data));
+        const { access_token, token_type } = res.data;
+        const currentUser = await dispatch(
+          getUserDetail({ access_token: access_token, token_type: token_type })
+        );
+        localStorage.setItem("CURRENT_USER", JSON.stringify(currentUser.data));
         //Redirect to home page
         setTimeout(() => {
-          navigate("/");
+          navigate("/my-course");
         }, 3000);
       } else {
         setToast(
@@ -107,7 +112,7 @@ const Login = (props) => {
           />
         </form>
         <p className="mt-3">
-          Đã có tài khoản <Link to={"/register"}>Đăng ký</Link>
+          Chưa có tài khoản <Link to={"/register"}>Đăng ký</Link>
         </p>
       </div>
       {toast}

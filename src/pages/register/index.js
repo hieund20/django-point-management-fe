@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { OU_EDU_EMAIL_REGEX } from "../../config/constants";
 import Toast from "../../sharedComponents/toast";
 import { registerUser } from "../../store/actions/userAction";
@@ -61,6 +62,7 @@ const Register = (props) => {
 
       const res = await dispatch(registerUser({ body: body }));
       if (res && res.status === 201) {
+        console.log("res", res);
         setToast(
           <Toast
             message={
@@ -87,142 +89,144 @@ const Register = (props) => {
   return (
     <div className="register main-container">
       <h3 className="text-center mb-5">Đăng ký</h3>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{ width: "50%", margin: "0 auto" }}
-      >
-        <div className="row justify-content-between mb-3">
-          <div className="col-4 text-left">
-            <label htmlFor="last_name">
-              <b>
-                Họ và tên đệm <span className="red-dot">*</span>
-              </b>
-            </label>
+      <div style={{ width: "50%", margin: "0 auto" }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="row justify-content-between mb-3">
+            <div className="col-4 text-left">
+              <label htmlFor="last_name">
+                <b>
+                  Họ và tên đệm <span className="red-dot">*</span>
+                </b>
+              </label>
+            </div>
+            <div className="col-8">
+              <input
+                {...register("last_name")}
+                id="last_name"
+                style={{ width: "100%" }}
+              />
+            </div>
           </div>
-          <div className="col-8">
-            <input
-              {...register("last_name")}
-              id="last_name"
-              style={{ width: "100%" }}
-            />
-          </div>
-        </div>
 
-        <div className="row justify-content-between mb-3">
-          <div className="col-4 text-left">
-            <label htmlFor="first_name">
-              <b>
-                Tên <span className="red-dot">*</span>
-              </b>
-            </label>
+          <div className="row justify-content-between mb-3">
+            <div className="col-4 text-left">
+              <label htmlFor="first_name">
+                <b>
+                  Tên <span className="red-dot">*</span>
+                </b>
+              </label>
+            </div>
+            <div className="col-8">
+              <input
+                {...register("first_name")}
+                id="first_name"
+                style={{ width: "100%" }}
+              />
+            </div>
           </div>
-          <div className="col-8">
-            <input
-              {...register("first_name")}
-              id="first_name"
-              style={{ width: "100%" }}
-            />
-          </div>
-        </div>
 
-        <div className="row justify-content-between mb-3">
-          <div className="col-4 text-left">
-            <label htmlFor="className">
-              <b>Lớp</b>
-            </label>
+          <div className="row justify-content-between mb-3">
+            <div className="col-4 text-left">
+              <label htmlFor="className">
+                <b>Lớp</b>
+              </label>
+            </div>
+            <div className="col-8">
+              <input
+                {...register("className")}
+                id="className"
+                style={{ width: "100%" }}
+              />
+            </div>
           </div>
-          <div className="col-8">
-            <input
-              {...register("className")}
-              id="className"
-              style={{ width: "100%" }}
-            />
-          </div>
-        </div>
 
-        <div className="row justify-content-between mb-3">
-          <div className="col-4 text-left">
-            <label htmlFor="email">
-              <b>
-                Email (do trường cấp) <span className="red-dot">*</span>
-              </b>
-            </label>
+          <div className="row justify-content-between mb-3">
+            <div className="col-4 text-left">
+              <label htmlFor="email">
+                <b>
+                  Email (do trường cấp) <span className="red-dot">*</span>
+                </b>
+              </label>
+            </div>
+            <div className="col-8">
+              <input
+                {...register("email")}
+                id="email"
+                style={{ width: "100%" }}
+              />
+            </div>
           </div>
-          <div className="col-8">
-            <input
-              {...register("email")}
-              id="email"
-              style={{ width: "100%" }}
-            />
-          </div>
-        </div>
 
-        <div className="row justify-content-between mb-3">
-          <div className="col-4 text-left">
-            <label htmlFor="username">
-              <b>
-                Tên đăng nhập <span className="red-dot">*</span>
-              </b>
-            </label>
+          <div className="row justify-content-between mb-3">
+            <div className="col-4 text-left">
+              <label htmlFor="username">
+                <b>
+                  Tên đăng nhập <span className="red-dot">*</span>
+                </b>
+              </label>
+            </div>
+            <div className="col-8">
+              <input
+                {...register("username")}
+                id="username"
+                style={{ width: "100%" }}
+              />
+            </div>
           </div>
-          <div className="col-8">
-            <input
-              {...register("username")}
-              id="username"
-              style={{ width: "100%" }}
-            />
-          </div>
-        </div>
 
-        <div className="row mb-3">
-          <div className="col-4 text-left">
-            <label htmlFor="password">
-              <b>
-                Mật khẩu <span className="red-dot">*</span>
-              </b>
-            </label>
+          <div className="row mb-3">
+            <div className="col-4 text-left">
+              <label htmlFor="password">
+                <b>
+                  Mật khẩu <span className="red-dot">*</span>
+                </b>
+              </label>
+            </div>
+            <div className="col-8">
+              <input
+                {...register("password")}
+                style={{ width: "100%" }}
+                type="password"
+              />
+            </div>
           </div>
-          <div className="col-8">
-            <input
-              {...register("password")}
-              style={{ width: "100%" }}
-              type="password"
-            />
-          </div>
-        </div>
 
-        <div className="row mb-3">
-          <div className="col-4 text-left">
-            <label htmlFor="confirm_password">
-              <b>
-                Xác nhận mật khẩu <span className="red-dot">*</span>
-              </b>
-            </label>
+          <div className="row mb-3">
+            <div className="col-4 text-left">
+              <label htmlFor="confirm_password">
+                <b>
+                  Xác nhận mật khẩu <span className="red-dot">*</span>
+                </b>
+              </label>
+            </div>
+            <div className="col-8">
+              <input
+                {...register("confirm_password")}
+                style={{ width: "100%" }}
+                type="password"
+              />
+            </div>
           </div>
-          <div className="col-8">
-            <input
-              {...register("confirm_password")}
-              style={{ width: "100%" }}
-              type="password"
-            />
-          </div>
-        </div>
 
-        {/* Error message */}
-        {errorMessage && (
-          <p className="mt-4 mb-4" style={{ color: "red" }}>
-            {errorMessage}
-          </p>
-        )}
+          {/* Error message */}
+          {errorMessage && (
+            <p className="mt-4 mb-4" style={{ color: "red" }}>
+              {errorMessage}
+            </p>
+          )}
 
-        <input
-          className="cursor-pointer"
-          style={{ width: "100%", height: 50 }}
-          type="submit"
-          value={"Đăng ký"}
-          id="password"
-        />
-      </form>
+          <input
+            className="cursor-pointer"
+            style={{ width: "100%", height: 50 }}
+            type="submit"
+            value={"Đăng ký"}
+            id="password"
+          />
+        </form>
+        <p className="mt-3">
+          Đã có tài khoản <Link to={"/login"}>Đăng nhập</Link>
+        </p>
+      </div>
       {toast}
     </div>
   );

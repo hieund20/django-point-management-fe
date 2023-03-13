@@ -83,3 +83,34 @@ export const loginUserReducer = (state = defaultState, action) => {
       return state;
   }
 };
+
+export const userDetailReducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case "GET_USER_DETAIL_LOADING":
+      return {
+        ...state,
+        loading: true,
+        errorMsg: "",
+      };
+    case "GET_USER_DETAIL_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+        errorMsg: "",
+      };
+    case "GET_USER_DETAIL_FAIL":
+      return {
+        ...state,
+        loading: false,
+        errorMsg: "Lỗi khi lấy thông tin người dùng",
+      };
+    case "LOGOUT_SUCCESS":
+      return {
+        ...state,
+        data: null,
+      };
+    default:
+      return state;
+  }
+};
