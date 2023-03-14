@@ -114,3 +114,29 @@ export const userDetailReducer = (state = defaultState, action) => {
       return state;
   }
 };
+
+export const userDetailByIdReducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case "GET_USER_DETAIL_BY_ID_LOADING":
+      return {
+        ...state,
+        loading: true,
+        errorMsg: "",
+      };
+    case "GET_USER_DETAIL_BY_ID_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+        errorMsg: "",
+      };
+    case "GET_USER_DETAIL_BY_ID_FAIL":
+      return {
+        ...state,
+        loading: false,
+        errorMsg: "Lỗi khi lấy thông tin người dùng",
+      };
+    default:
+      return state;
+  }
+};

@@ -137,7 +137,35 @@ export const getUserDetail = (payload) => async (dispatch) => {
     return res;
   } catch (e) {
     dispatch({
-      type: "GET_USER_DETAIL_FAILE",
+      type: "GET_USER_DETAIL_FAIL",
+    });
+  }
+};
+
+export const getUserDetailById = (payload) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "GET_USER_DETAIL_BY_ID_LOADING",
+    });
+
+    const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
+    const { access_token, token_type } = outh2;
+    const res = await axios.get(
+      `https://django-point-management.herokuapp.com/user/${payload.id}/`,
+      {
+        headers: {
+          Authorization: `${token_type} ${access_token}`,
+        },
+      }
+    );
+
+    dispatch({
+      type: "GET_USER_DETAIL_BY_ID_SUCCESS",
+      payload: res.data,
+    });
+  } catch (e) {
+    dispatch({
+      type: "GET_USER_DETAIL_BY_ID_FAIL",
     });
   }
 };
@@ -147,7 +175,6 @@ export const logoutUser = (payload) => async (dispatch) => {
     dispatch({
       type: "LOGOUT_SUCCESS",
     });
-    
   } catch (e) {
     dispatch({
       type: "LOGOUT_FAIL",

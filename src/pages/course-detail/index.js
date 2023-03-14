@@ -7,7 +7,7 @@ import {
   getCourseMembers,
 } from "../../store/actions/courseAction";
 import { getScoresByCourse } from "../../store/actions/userAction";
-import { editIcon } from "../../assets/svg";
+import { editIcon, accountIcon } from "../../assets/svg";
 import { Link } from "react-router-dom";
 
 const CourseDetail = (props) => {
@@ -38,8 +38,6 @@ const CourseDetail = (props) => {
     fetchCourseMember();
   }, []);
 
-  console.log(courseMembers);
-
   return (
     <div className="course-detail main-container">
       {courseDetail && (
@@ -50,7 +48,7 @@ const CourseDetail = (props) => {
 
           {currentTab === 1 && (
             <div className="student-list-section">
-              <table class="table">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -64,7 +62,7 @@ const CourseDetail = (props) => {
                 <tbody>
                   {courseMembers &&
                     courseMembers.data.map((el, index) => (
-                      <tr>
+                      <tr className="align-items-center" key={el.id}>
                         <th scope="row">{index + 1}</th>
                         <td>{`${el.last_name || "--"} ${
                           el.first_name || "--"
@@ -73,7 +71,7 @@ const CourseDetail = (props) => {
                         <td>{el.is_staff ? "Giảng viên" : "Sinh viên"}</td>
                         <td>{el.className || "--"}</td>
                         {data.is_staff && (
-                          <td className="d-flex align-items-center">
+                          <td>
                             <Link
                               className="cursor-pointer"
                               data-toggle="tooltip"
@@ -84,8 +82,26 @@ const CourseDetail = (props) => {
                               <img
                                 src={editIcon}
                                 alt="edit-icon"
-                                width={18}
-                                height={18}
+                                width={15}
+                                height={15}
+                                style={{ marginLeft: 8 }}
+                              />
+                            </Link>
+
+                            <Link
+                              className="cursor-pointer"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title="Xem thông tin sinh viên"
+                              to={`/user-detail/${el.id}`}
+                              style={{ marginLeft: 4 }}
+                            >
+                              <img
+                                src={accountIcon}
+                                alt="edit-icon"
+                                width={15}
+                                height={15}
+                                style={{ marginLeft: 8 }}
                               />
                             </Link>
                           </td>
@@ -99,7 +115,7 @@ const CourseDetail = (props) => {
 
           {currentTab === 2 && (
             <div className="score-section">
-              <table class="table">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">Điểm 1</th>
@@ -127,12 +143,6 @@ const CourseDetail = (props) => {
                       <td colSpan={"7"}>Không có dữ liệu</td>
                     </tr>
                   )}
-                  <tr>
-                    <td colspan="1">
-                      <b>Tổng điểm: </b>
-                    </td>
-                    <td colspan="6">33.1</td>
-                  </tr>
                 </tbody>
               </table>
             </div>

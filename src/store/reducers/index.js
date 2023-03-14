@@ -8,6 +8,7 @@ import { postUserScoreReducer } from "./scoreReducer";
 import {
   loginUserReducer,
   registerUserReducer,
+  userDetailByIdReducer,
   userDetailReducer,
   userScoreReducer,
 } from "./userReducer";
@@ -20,6 +21,7 @@ const RootReducer = combineReducers({
   registerUser: registerUserReducer,
   loginUser: loginUserReducer,
   userDetail: userDetailReducer,
+  userDetailById: userDetailByIdReducer,
   postUserScore: postUserScoreReducer,
 });
 

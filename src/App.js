@@ -7,6 +7,7 @@ import Footer from "./sharedComponents/footer";
 import MyCourses from "./pages/my-courses";
 import CourseDetail from "./pages/course-detail";
 import InputScore from "./pages/input-scores";
+import UserDetail from "./pages/user-detail";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             path="/my-course/input-scores/:course_id/user/:user_id"
             element={<InputScore />}
           ></Route>
+          <Route exact path="/user-detail/:id" element={<UserDetail />}></Route>
         </Routes>
       </Router>
       <Footer />
