@@ -44,7 +44,13 @@ const CourseDetail = (props) => {
         <div>
           <h3 className="mb-5">{courseDetail.data.name}</h3>
           <Tabs tabIndex={setCurrentTab} />
-          {currentTab === 0 && <div className="course-section"></div>}
+          {currentTab === 0 && (
+            <div className="course-section">
+              <h1>
+                <Link to={"/forum"}>Diễn đàn môn học</Link>
+              </h1>
+            </div>
+          )}
 
           {currentTab === 1 && (
             <div className="student-list-section">

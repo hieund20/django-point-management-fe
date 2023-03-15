@@ -8,6 +8,8 @@ import MyCourses from "./pages/my-courses";
 import CourseDetail from "./pages/course-detail";
 import InputScore from "./pages/input-scores";
 import UserDetail from "./pages/user-detail";
+import Forum from "./pages/forum";
+
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
             element={<InputScore />}
           ></Route>
           <Route exact path="/user-detail/:id" element={<UserDetail />}></Route>
+          <Route exact path="/forum" element={<Forum />}></Route>
         </Routes>
       </Router>
       <Footer />
