@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { defaultAvatar } from "../../assets/image";
+import { getScoreByUserAndCourse } from "../../store/actions/scoreAction";
 import { getUserDetailById } from "../../store/actions/userAction";
 
 const UserDetail = (props) => {
   const dispatch = useDispatch();
   const userDetail = useSelector((state) => state.userDetailById);
+  const userScore = useSelector((state) => state.scoreByUserAndCourse);
   const { data } = userDetail;
   let { id } = useParams();
 
@@ -14,9 +16,16 @@ const UserDetail = (props) => {
     dispatch(getUserDetailById({ id: id }));
   };
 
+  const fetchScoreOfUserByCourseAndUser = () => {
+    dispatch(getScoreByUserAndCourse({ user_id: id, course_id: 2 }));
+  };
+
   useEffect(() => {
     fetchUserDetailById();
+    fetchScoreOfUserByCourseAndUser();
   }, []);
+
+  console.log("userScore", userScore);
 
   return (
     <div className="user-detail main-container">
@@ -76,12 +85,13 @@ const UserDetail = (props) => {
             </thead>
             <tbody>
               <tr>
-                <td>7</td>
-                <td>7</td>
-                <td>7</td>
-                <td>7</td>
-                <td>7</td>
-                <td>7</td>
+                <td>{userScore.data.score1 || "--"}</td>
+                <td>{userScore.data.score2 || "--"}</td>
+                <td>{userScore.data.score3 || "--"}</td>
+                <td>{userScore.data.score4 || "--"}</td>
+                <td>{userScore.data.score5 || "--"}</td>
+                <td>{userScore.data.midterm_score || "--"}</td>
+                <td>{userScore.data.final_score || "--"}</td>
               </tr>
             </tbody>
           </table>

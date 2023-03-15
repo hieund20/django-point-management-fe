@@ -10,23 +10,48 @@ const InputScore = (props) => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const [toast, setToast] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (data) => {
-    const body = {
-      ...data,
-      user_id: user_id,
-      course_id: course_id,
-    };
+    const { midterm_score, final_score } = data;
 
-    const res = await dispatch(postUserScore({ body: body }));
-    if (res && res.status === 201) {
-      setToast(
-        <Toast message={"Lưu điểm sinh viên thành công"} success={true} />
-      );
-    } else {
-      setToast(
-        <Toast message={`${res.status} - ${res.statusText}`} success={false} />
-      );
+    let isInvalid = false;
+    if (!midterm_score || !final_score) {
+      setErrorMessage("Điểm giữa kỳ và cuối kỳ không được để trống");
+      isInvalid = true;
+    }
+
+    if (!isInvalid) {
+      let objBody = {};
+      for (const [key, value] of Object.entries(data)) {
+        if (value) {
+          objBody[key] = value;
+        } else {
+          objBody[key] = NaN;
+        }
+      }
+      console.log("objBody", objBody);
+      setErrorMessage("");
+
+      const body = {
+        ...objBody,
+        is_draft: false,
+        user_id: user_id,
+        course_id: course_id,
+      };
+      const res = await dispatch(postUserScore({ body: body }));
+      if (res && res.status === 201) {
+        setToast(
+          <Toast message={"Lưu điểm sinh viên thành công"} success={true} />
+        );
+      } else {
+        setToast(
+          <Toast
+            message={`${res.status} - ${res.statusText}`}
+            success={false}
+          />
+        );
+      }
     }
   };
 
@@ -138,6 +163,13 @@ const InputScore = (props) => {
             />
           </div>
         </div>
+
+        {/* Error message */}
+        {errorMessage && (
+          <p className="mt-4 mb-4" style={{ color: "red" }}>
+            {errorMessage}
+          </p>
+        )}
 
         <input
           className="cursor-pointer"
