@@ -25,8 +25,6 @@ const UserDetail = (props) => {
     fetchScoreOfUserByCourseAndUser();
   }, []);
 
-  console.log("userScore", userScore);
-
   return (
     <div className="user-detail main-container">
       <div style={{ width: "30%" }}>

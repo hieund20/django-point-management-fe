@@ -51,6 +51,7 @@ export const getScoreByUserAndCourse = (payload) => async (dispatch) => {
       type: "GET_SCORE_BY_USER_COURSE_SUCCESS",
       payload: res.data,
     });
+    return res;
   } catch (e) {
     dispatch({
       type: "GET_SCORE_BY_USER_COURSE_FAIL",

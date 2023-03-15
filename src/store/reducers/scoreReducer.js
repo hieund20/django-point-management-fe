@@ -1,6 +1,6 @@
 const defaultState = {
   loading: false,
-  data: [],
+  data: null,
   errorMsg: "",
   count: 0,
 };
