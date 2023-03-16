@@ -19,13 +19,19 @@ export const userScoreReducer = (state = defaultState, action) => {
         loading: false,
         data: action.payload,
         errorMsg: "",
-        count: action.payload.count,
       };
     case "GET_SCORES_FAIL":
       return {
         ...state,
         loading: false,
         errorMsg: "Lỗi khi lấy danh sách điểm khóa học của người dùng",
+      };
+    case "PUT_USER_SCORE_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+        errorMsg: "",
       };
     default:
       return state;

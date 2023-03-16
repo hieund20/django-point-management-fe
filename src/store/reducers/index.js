@@ -4,7 +4,7 @@ import {
   courseDetailReducer,
   courseMemberReducer,
 } from "./courseReducer";
-import { getScoreByUserAndCourseReducer, postUserScoreReducer } from "./scoreReducer";
+import { getScoreByUserAndCourseReducer, postUserScoreReducer, putUserScoreReducer } from "./scoreReducer";
 import {
   loginUserReducer,
   registerUserReducer,
@@ -23,6 +23,7 @@ const RootReducer = combineReducers({
   userDetail: userDetailReducer,
   userDetailById: userDetailByIdReducer,
   postUserScore: postUserScoreReducer,
+  putUserScore: putUserScoreReducer,
   scoreByUserAndCourse: getScoreByUserAndCourseReducer
 });
 
