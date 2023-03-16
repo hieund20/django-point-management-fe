@@ -98,7 +98,7 @@ export const putLockUserScore = (payload) => async (dispatch) => {
     const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
     const { access_token, token_type } = outh2;
     const res = await axios.put(
-      `https://django-point-management.herokuapp.com/score/${payload.id}/lock_score/`,
+      `https://django-point-management.herokuapp.com/score/${payload.id}/lock_score/?user_send_email_id=${payload.user_send_email_id}`,
       { ...payload.body },
       {
         headers: {
@@ -128,7 +128,7 @@ export const putUnLockUserScore = (payload) => async (dispatch) => {
     const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
     const { access_token, token_type } = outh2;
     const res = await axios.put(
-      `https://django-point-management.herokuapp.com/score/${payload.id}/unlock_score/`,
+      `https://django-point-management.herokuapp.com/score/${payload.id}/unlock_score/?user_send_email_id=${payload.user_send_email_id}`,
       { ...payload.body },
       {
         headers: {

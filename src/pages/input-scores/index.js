@@ -134,6 +134,7 @@ const InputScore = (props) => {
     const res = await dispatch(
       putLockUserScore({
         id: userScore.data.id,
+        user_send_email_id: user_id,
         body: {
           ...userScore.data, //Because BE only update active fieldName, correct body is unnecessary
         },
@@ -155,6 +156,7 @@ const InputScore = (props) => {
     const res = await dispatch(
       putUnLockUserScore({
         id: userScore.data.id,
+        user_send_email_id: user_id,
         body: {
           ...userScore.data, //Because BE only update active fieldName, correct body is unnecessary
         },
