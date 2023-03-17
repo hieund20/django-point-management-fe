@@ -1,4 +1,5 @@
 import React from "react";
+import "./style.scss";
 
 const Forum = (props) => {
   const questionList = [
@@ -10,11 +11,14 @@ const Forum = (props) => {
 
   return (
     <div className="forum main-container">
-      <h3>Diễn đàn trao đổi môn học</h3>
+      <div className="forum-header">
+        <span className="left">Diễn đàn trao đổi môn học</span>
+        <span className="right">Tạo bài đăng</span>
+      </div>
       {questionList.map((el) => (
-        <div>
-          <h4>{el.title}</h4>
-          <p>{el.user}</p>
+        <div className="forum-body">
+          <span className="left">{el.title}</span>
+          <span className="right">{el.user}</span>
         </div>
       ))}
     </div>

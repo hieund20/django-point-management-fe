@@ -46,9 +46,20 @@ const CourseDetail = (props) => {
           <Tabs tabIndex={setCurrentTab} />
           {currentTab === 0 && (
             <div className="course-section">
-              <h1>
-                <Link to={"/forum"}>Diễn đàn môn học</Link>
-              </h1>
+              <h4>
+                <Link
+                  to={"/forum"}
+                  style={{
+                    border: "none",
+                    width: "30%",
+                    borderRadius: 4,
+                    padding: 8,
+                    margin:30,
+                  }}
+                >
+                  Diễn đàn môn học
+                </Link>
+              </h4>
             </div>
           )}
 
