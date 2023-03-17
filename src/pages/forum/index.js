@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.scss";
+import { Link } from "react-router-dom";
 
 const Forum = (props) => {
   const questionList = [
@@ -11,14 +12,19 @@ const Forum = (props) => {
 
   return (
     <div className="forum main-container">
-      <div className="forum-header">
-        <span className="left">Diễn đàn trao đổi môn học</span>
-        <span className="right">Tạo bài đăng</span>
+      <div className="forum-nav">
+        <span>Diễn đàn trao đổi môn học</span>
+        <span className="right"><Link to={"/forum-create"}>Tạo bài đăng</Link></span>
       </div>
+      <br></br>
       {questionList.map((el) => (
-        <div className="forum-body">
-          <span className="left">{el.title}</span>
-          <span className="right">{el.user}</span>
+        <div className="forum-content">
+          <ul>
+            <li>
+              <span >{el.title}</span> <br></br>
+              <span >{el.user}</span>
+            </li>
+          </ul>
         </div>
       ))}
     </div>

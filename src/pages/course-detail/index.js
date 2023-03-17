@@ -9,6 +9,7 @@ import {
 import { getScoresByCourse } from "../../store/actions/userAction";
 import { editIcon, accountIcon } from "../../assets/svg";
 import { Link } from "react-router-dom";
+import "./style.scss";
 
 const CourseDetail = (props) => {
   const dispatch = useDispatch();
@@ -47,18 +48,7 @@ const CourseDetail = (props) => {
           {currentTab === 0 && (
             <div className="course-section">
               <h4>
-                <Link
-                  to={"/forum"}
-                  style={{
-                    border: "none",
-                    width: "30%",
-                    borderRadius: 4,
-                    padding: 8,
-                    margin:30,
-                  }}
-                >
-                  Diễn đàn môn học
-                </Link>
+                <Link to={"/forum"}>Diễn đàn môn học</Link>
               </h4>
             </div>
           )}
