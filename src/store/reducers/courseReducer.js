@@ -79,6 +79,19 @@ export const courseMemberReducer = (state = defaultState, action) => {
         loading: false,
         errorMsg: "Lỗi khi lấy danh sách thành viên trong khóa học",
       };
+    case "GET_USER_LIST_BY_NAME_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+        errorMsg: "",
+      };
+    case "GET_USER_LIST_BY_NAME_FAIL":
+      return {
+        ...state,
+        loading: false,
+        errorMsg: "Lỗi khi tìm kiếm thành viên trong khóa học theo tên",
+      };
     default:
       return state;
   }
