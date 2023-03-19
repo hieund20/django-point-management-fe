@@ -181,3 +181,31 @@ export const logoutUser = (payload) => async (dispatch) => {
     });
   }
 };
+
+export const getUserListByName = (payload) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "GET_USER_LIST_BY_NAME_LOADING",
+    });
+
+    const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
+    const { access_token, token_type } = outh2;
+    const res = await axios.get(
+      `https://django-point-management.herokuapp.com/user/get_user_by_name/?course_id=${payload.course_id}&first_name=${payload.first_name}&last_name=${payload.last_name}`,
+      {
+        headers: {
+          Authorization: `${token_type} ${access_token}`,
+        },
+      }
+    );
+
+    dispatch({
+      type: "GET_USER_LIST_BY_NAME_SUCCESS",
+      payload: res.data,
+    });
+  } catch (e) {
+    dispatch({
+      type: "GET_USER_LIST_BY_NAME_FAIL",
+    });
+  }
+};

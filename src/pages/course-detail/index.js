@@ -6,8 +6,11 @@ import {
   getCourseDetail,
   getCourseMembers,
 } from "../../store/actions/courseAction";
-import { getScoresByCourse } from "../../store/actions/userAction";
-import { editIcon, accountIcon } from "../../assets/svg";
+import {
+  getScoresByCourse,
+  getUserListByName,
+} from "../../store/actions/userAction";
+import { editIcon, accountIcon, importFileIcon } from "../../assets/svg";
 import { Link } from "react-router-dom";
 
 const CourseDetail = (props) => {
@@ -19,6 +22,11 @@ const CourseDetail = (props) => {
   const { data } = currentUser;
   let { id } = useParams();
   const [currentTab, setCurrentTab] = useState(0);
+  //Search
+  const [searchValue, setSearchValue] = useState({
+    first_name: "",
+    last_name: "",
+  });
 
   const fetchCourseDetail = () => {
     dispatch(getCourseDetail({ id: id }));
@@ -32,25 +40,86 @@ const CourseDetail = (props) => {
     dispatch(getCourseMembers({ id: id }));
   };
 
+  const fetchCourseMemberByName = () => {
+    const { first_name, last_name } = searchValue;
+    dispatch(
+      getUserListByName({
+        course_id: id,
+        first_name: first_name,
+        last_name: last_name,
+      })
+    );
+  };
+
   useEffect(() => {
     fetchCourseDetail();
     fetchUserScore();
     fetchCourseMember();
   }, []);
 
+  useEffect(() => {
+    fetchCourseMemberByName();
+  }, [searchValue]);
+
   return (
     <div className="course-detail main-container">
       {courseDetail && (
         <div>
           <h3 className="mb-5">{courseDetail.data.name}</h3>
-          <Tabs
-            tabIndex={setCurrentTab}
-            isShowScoreTab={!data.is_staff}
-          />
+          <Tabs tabIndex={setCurrentTab} isShowScoreTab={!data.is_staff} />
           {currentTab === 0 && <div className="course-section"></div>}
 
           {currentTab === 1 && (
             <div className="student-list-section">
+              <div className="d-flex mb-3">
+                <div
+                  className="d-flex"
+                  style={{ marginRight: 0, marginLeft: "auto" }}
+                >
+                  <input
+                    style={{ marginRight: 12 }}
+                    placeholder="Họ sinh viên..."
+                    value={searchValue.last_name}
+                    onChange={(e) =>
+                      setSearchValue({
+                        ...searchValue,
+                        last_name: e.target.value,
+                      })
+                    }
+                  />
+                  <div>
+                    <b>-</b>
+                  </div>
+                  <input
+                    style={{ marginLeft: 12 }}
+                    placeholder="Tên sinh viên..."
+                    value={searchValue.first_name}
+                    onChange={(e) =>
+                      setSearchValue({
+                        ...searchValue,
+                        first_name: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+
+                <div className="mr-3 ml-3">
+                  <span>|</span>
+                </div>
+
+                <div style={{ marginRight: 0, marginLeft: 0 }}>
+                  <button>
+                    <img
+                      src={importFileIcon}
+                      alt="import-file-icon"
+                      width={20}
+                      height={20}
+                    />{" "}
+                    Nhập điểm sinh viên
+                  </button>
+                </div>
+              </div>
+
               <table className="table">
                 <thead>
                   <tr>
