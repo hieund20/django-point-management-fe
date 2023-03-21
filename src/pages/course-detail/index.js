@@ -87,13 +87,19 @@ const CourseDetail = (props) => {
   const onExportScoreToCSV = async () => {
     const res = await dispatch(getScoreCSV({ course_id: id }));
 
-    if (res) {
-      setToast(
-        <Toast
-          message={"Xuất điểm sinh viên ra CSV thành công"}
-          success={true}
-        />
-      );
+    if (res && res.status === 200) {
+      const { data } = res;
+
+      //Create csv file
+      const blob = new Blob([data], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "score.csv";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     } else {
       setToast(
         <Toast
@@ -107,13 +113,19 @@ const CourseDetail = (props) => {
   const onExportScoreToPDF = async () => {
     const res = await dispatch(getScorePDF({ course_id: id }));
 
-    if (res) {
-      setToast(
-        <Toast
-          message={"Xuất điểm sinh viên ra PDF thành công"}
-          success={true}
-        />
-      );
+    if (res && res.status === 200) {
+      const { data } = res;
+      
+      //Create csv file
+      const blob = new Blob([data], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "document.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     } else {
       setToast(
         <Toast

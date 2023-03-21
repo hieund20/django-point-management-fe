@@ -160,9 +160,12 @@ export const postImportScoreCSV = (payload) => async (dispatch) => {
 
     const { body, course_id } = payload;
 
+    const formData = new FormData();
+    formData.append("file", body.file);
+
     const res = await axios.post(
       `https://django-point-management.herokuapp.com/csv-handle/score/?course_id=${course_id}`,
-      { ...payload.body },
+      formData,
       {
         headers: {
           Authorization: `${token_type} ${access_token}`,
@@ -194,9 +197,8 @@ export const getScoreCSV = (payload) => async (dispatch) => {
 
     const { course_id } = payload;
 
-    const res = await axios.gét(
+    const res = await axios.get(
       `https://django-point-management.herokuapp.com/csv-handle/score/?course_id=${course_id}`,
-      { ...payload.body },
       {
         headers: {
           Authorization: `${token_type} ${access_token}`,
@@ -227,9 +229,8 @@ export const getScorePDF = (payload) => async (dispatch) => {
 
     const { course_id } = payload;
 
-    const res = await axios.gét(
+    const res = await axios.get(
       `https://django-point-management.herokuapp.com/pdf-handle/score/?course_id=${course_id}`,
-      { ...payload.body },
       {
         headers: {
           Authorization: `${token_type} ${access_token}`,
