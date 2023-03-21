@@ -148,3 +148,104 @@ export const putUnLockUserScore = (payload) => async (dispatch) => {
     });
   }
 };
+
+export const postImportScoreCSV = (payload) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "POST_IMPORT_SCORE_CSV_LOADING",
+    });
+
+    const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
+    const { access_token, token_type } = outh2;
+
+    const { body, course_id } = payload;
+
+    const formData = new FormData();
+    formData.append("file", body.file);
+
+    const res = await axios.post(
+      `https://django-point-management.herokuapp.com/csv-handle/score/?course_id=${course_id}`,
+      formData,
+      {
+        headers: {
+          Authorization: `${token_type} ${access_token}`,
+          "Content-Disposition": `attachment; filename=${body.file.name}`,
+        },
+      }
+    );
+
+    dispatch({
+      type: "POST_IMPORT_SCORE_CSV_SUCCESS",
+      payload: res.data,
+    });
+    return res;
+  } catch (e) {
+    dispatch({
+      type: "POST_IMPORT_SCORE_CSV_FAIL",
+    });
+  }
+};
+
+export const getScoreCSV = (payload) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "GET_SCORE_CSV_LOADING",
+    });
+
+    const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
+    const { access_token, token_type } = outh2;
+
+    const { course_id } = payload;
+
+    const res = await axios.get(
+      `https://django-point-management.herokuapp.com/csv-handle/score/?course_id=${course_id}`,
+      {
+        headers: {
+          Authorization: `${token_type} ${access_token}`,
+        },
+      }
+    );
+
+    dispatch({
+      type: "GET_SCORE_CSV_SUCCESS",
+      payload: res.data,
+    });
+    return res;
+  } catch (e) {
+    dispatch({
+      type: "GET_SCORE_CSV_FAIL",
+    });
+  }
+};
+
+export const getScorePDF = (payload) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "GET_SCORE_PDF_LOADING",
+    });
+
+    const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
+    const { access_token, token_type } = outh2;
+
+    const { course_id } = payload;
+
+    const res = await axios.get(
+      `https://django-point-management.herokuapp.com/pdf-handle/score/?course_id=${course_id}`,
+      {
+        headers: {
+          Authorization: `${token_type} ${access_token}`,
+        },
+      }
+    );
+
+    dispatch({
+      type: "GET_SCORE_PDF_SUCCESS",
+      payload: res.data,
+    });
+    return res;
+  } catch (e) {
+    dispatch({
+      type: "GET_SCORE_PDF_FAIL",
+    });
+  }
+};

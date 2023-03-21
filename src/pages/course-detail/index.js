@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import { accountIcon, editIcon, importFileIcon } from "../../assets/svg";
 import Tabs from "../../sharedComponents/tabs";
+import Toast from "../../sharedComponents/toast";
 import {
   getCourseDetail,
   getCourseMembers,
 } from "../../store/actions/courseAction";
 import {
+  getScoreCSV,
+  getScorePDF,
+  postImportScoreCSV,
+} from "../../store/actions/scoreAction";
+import {
   getScoresByCourse,
   getUserListByName,
 } from "../../store/actions/userAction";
-import { editIcon, accountIcon, importFileIcon } from "../../assets/svg";
-import { Link } from "react-router-dom";
 import "./style.scss";
 
 const CourseDetail = (props) => {
@@ -28,6 +34,10 @@ const CourseDetail = (props) => {
     first_name: "",
     last_name: "",
   });
+  //Toast
+  const [toast, setToast] = useState(null);
+  //File
+  const [file, setFile] = useState(null);
 
   const fetchCourseDetail = () => {
     dispatch(getCourseDetail({ id: id }));
@@ -52,6 +62,81 @@ const CourseDetail = (props) => {
     );
   };
 
+  const importScoreCSV = async () => {
+    const res = await dispatch(
+      postImportScoreCSV({
+        body: {
+          file: file,
+        },
+        course_id: id,
+      })
+    );
+    if (res && res.status === 200) {
+      setToast(
+        <Toast message={"Import điểm sinh viên thành công"} success={true} />
+      );
+    } else {
+      setToast(
+        <Toast
+          message={"Import điểm sinh viên không thành công"}
+          success={false}
+        />
+      );
+    }
+  };
+
+  const onExportScoreToCSV = async () => {
+    const res = await dispatch(getScoreCSV({ course_id: id }));
+
+    if (res && res.status === 200) {
+      const { data } = res;
+
+      //Create csv file
+      const blob = new Blob([data], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "score.csv";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } else {
+      setToast(
+        <Toast
+          message={"Xuất điểm sinh viên ra CSV không thành công"}
+          success={false}
+        />
+      );
+    }
+  };
+
+  const onExportScoreToPDF = async () => {
+    const res = await dispatch(getScorePDF({ course_id: id }));
+
+    if (res && res.status === 200) {
+      const { data } = res;
+
+      //Create csv file
+      const blob = new Blob([data], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "document.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } else {
+      setToast(
+        <Toast
+          message={"Xuất điểm sinh viên ra PDF không thành công"}
+          success={false}
+        />
+      );
+    }
+  };
+
   useEffect(() => {
     fetchCourseDetail();
     fetchUserScore();
@@ -68,7 +153,7 @@ const CourseDetail = (props) => {
         <div>
           <h3 className="mb-5">{courseDetail.data.name}</h3>
           <Tabs tabIndex={setCurrentTab} isShowScoreTab={!data.is_staff} />
-          
+
           {currentTab === 0 && (
             <div className="course-section">
               <h4>
@@ -116,14 +201,30 @@ const CourseDetail = (props) => {
                 </div>
 
                 <div style={{ marginRight: 0, marginLeft: 0 }}>
-                  <button>
+                  <input
+                    type="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                  />
+                  <button onClick={() => importScoreCSV()}>
                     <img
                       src={importFileIcon}
                       alt="import-file-icon"
                       width={20}
                       height={20}
-                    />{" "}
-                    Nhập điểm sinh viên
+                    />
+                    Import bảng điểm
+                  </button>
+                </div>
+
+                <div style={{ marginRight: 0, marginLeft: 8 }}>
+                  <button onClick={() => onExportScoreToCSV()}>
+                    Xuất điểm CSV
+                  </button>
+                  <button
+                    style={{ marginLeft: 8 }}
+                    onClick={() => onExportScoreToPDF()}
+                  >
+                    Xuất điểm PDF
                   </button>
                 </div>
               </div>
@@ -229,6 +330,7 @@ const CourseDetail = (props) => {
           )}
         </div>
       )}
+      {toast}
     </div>
   );
 };
