@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import { accountIcon, editIcon, importFileIcon } from "../../assets/svg";
 import Tabs from "../../sharedComponents/tabs";
+import Toast from "../../sharedComponents/toast";
 import {
   getCourseDetail,
   getCourseMembers,
 } from "../../store/actions/courseAction";
 import {
-  getScoresByCourse,
-  getUserListByName,
-} from "../../store/actions/userAction";
-import { editIcon, accountIcon, importFileIcon } from "../../assets/svg";
-import { Link } from "react-router-dom";
-import {
   getScoreCSV,
   getScorePDF,
   postImportScoreCSV,
 } from "../../store/actions/scoreAction";
-import Toast from "../../sharedComponents/toast";
+import {
+  getScoresByCourse,
+  getUserListByName,
+} from "../../store/actions/userAction";
+import "./style.scss";
 
 const CourseDetail = (props) => {
   const dispatch = useDispatch();
@@ -115,7 +116,7 @@ const CourseDetail = (props) => {
 
     if (res && res.status === 200) {
       const { data } = res;
-      
+
       //Create csv file
       const blob = new Blob([data], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
@@ -152,7 +153,14 @@ const CourseDetail = (props) => {
         <div>
           <h3 className="mb-5">{courseDetail.data.name}</h3>
           <Tabs tabIndex={setCurrentTab} isShowScoreTab={!data.is_staff} />
-          {currentTab === 0 && <div className="course-section"></div>}
+
+          {currentTab === 0 && (
+            <div className="course-section">
+              <h4>
+                <Link to={"/forum"}>Diễn đàn môn học</Link>
+              </h4>
+            </div>
+          )}
 
           {currentTab === 1 && (
             <div className="student-list-section">
