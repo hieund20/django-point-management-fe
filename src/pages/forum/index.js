@@ -14,7 +14,7 @@ const Forum = (props) => {
     <div className="forum main-container">
       <div className="forum-nav">
         <span>Diễn đàn trao đổi môn học</span>
-        <span className="right"><Link to={"/forum-create"}>Tạo bài đăng</Link></span>
+        <button className="right"><Link to={"/forum-create"}>Tạo bài đăng</Link></button>
       </div>
       <br></br>
       {questionList.map((el) => (

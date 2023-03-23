@@ -1,0 +1,14 @@
+.input-score {
+    .btn-blue-outline {
+        color: #5762fb;
+        background-color: white;
+        border: 2px solid #5762fb;
+        height: 40px;
+        border-radius: 4px;
+        padding: 8px;
+
+        &.disabled {
+            background-color: lightgray;
+        }
+    }
+}

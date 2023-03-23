@@ -205,22 +205,23 @@ const CourseDetail = (props) => {
                     type="file"
                     onChange={(e) => setFile(e.target.files[0])}
                   />
-                  <button onClick={() => importScoreCSV()}>
-                    <img
-                      src={importFileIcon}
-                      alt="import-file-icon"
-                      width={20}
-                      height={20}
-                    />
+                  <button
+                    className="btn-green"
+                    onClick={() => importScoreCSV()}
+                  >
                     Import bảng điểm
                   </button>
                 </div>
 
                 <div style={{ marginRight: 0, marginLeft: 8 }}>
-                  <button onClick={() => onExportScoreToCSV()}>
+                  <button
+                    onClick={() => onExportScoreToCSV()}
+                    className="btn-green"
+                  >
                     Xuất điểm CSV
                   </button>
                   <button
+                    className="btn-green"
                     style={{ marginLeft: 8 }}
                     onClick={() => onExportScoreToPDF()}
                   >

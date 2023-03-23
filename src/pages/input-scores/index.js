@@ -10,6 +10,7 @@ import {
   putUnLockUserScore,
   putUserScore,
 } from "../../store/actions/scoreAction";
+import "./style.scss";
 
 const InputScore = (props) => {
   let { course_id, user_id } = useParams();
@@ -345,7 +346,7 @@ const InputScore = (props) => {
           )}
 
           <input
-            className="cursor-pointer"
+            className="cursor-pointer btn-submit"
             style={{ width: "100%", height: 50 }}
             type="submit"
             value={"Lưu thay đổi"}
@@ -359,6 +360,9 @@ const InputScore = (props) => {
                 disabled={!userScore.data.active}
                 style={{ width: "100%", height: 40 }}
                 onClick={() => onLockScore()}
+                className={`cursor-pointer btn-blue-outline ${
+                  !userScore.data.active ? "disabled" : ""
+                }`}
               >
                 Khóa điểm
               </button>
@@ -368,6 +372,9 @@ const InputScore = (props) => {
                 disabled={userScore.data.active}
                 style={{ width: "100%", height: 40 }}
                 onClick={() => onUnLockScore()}
+                className={`cursor-pointer btn-blue-outline ${
+                  userScore.data.active ? "disabled" : ""
+                }`}
               >
                 Mở điểm
               </button>

@@ -1,6 +1,12 @@
-.course-section {
-  h4 {
-    margin-left: 40px;
-    font-size: xx-large;
+.course-detail {
+  .student-list-section {
+    .btn-green {
+      color: white;
+      background-color: rgb(39, 163, 49);
+      border: none;
+      height: 40px;
+      border-radius: 4px;
+      padding: 8px;
+    }
   }
 }
