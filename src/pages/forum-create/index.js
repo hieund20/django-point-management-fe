@@ -2,43 +2,35 @@ import React from 'react';
 import "./style.scss";
 
 
-const ForumCreate = (props) => {
+const ForumCreate = () => {
     
     return (
-        <h3>#############</h3>
-    //     <div className="login main-container">
-    //   <h3 className="text-center mb-5">Đăng nhập</h3>
-    //   <div style={{ width: "50%", margin: "0 auto" }}>
-    //     <form onSubmit={handleSubmit(onSubmit)}>
-    //       <div className="row justify-content-between mb-3">
-    //         <div className="col-4 text-left">
-    //           <label htmlFor="username">
-    //             <b>Tên đăng nhập</b>
-    //           </label>
-    //         </div>
-    //         <div className="col-8">
-    //           <input
-    //             {...register("username")}
-    //             id="username"
-    //             style={{ width: "100%" }}
-    //           />
-    //         </div>
-    //       </div>
+        <div>
+            {/* <h1>Tạo bài đăng</h1>
+            <form>
+                
+                <div>
+                    <label for="title">Tiêu đề:</label><br>
+                    <input type="text" id="title" name="title"><br>
+                </div>
+                <div>
+                    <label for="content">Nội dung:</label><br>
+                    <textarea id="content" name="content" rows="5" cols="50"></textarea><br>
+                </div>
 
-    //       <div className="row mb-3">
-    //         <div className="col-4 text-left">
-    //           <label htmlFor="password">
-    //             <b>Mật khẩu</b>
-    //           </label>
-    //         </div>
-    //         <div className="col-8">
-    //           <input
-    //             {...register("password")}
-    //             style={{ width: "100%" }}
-    //             type="password"
-    //           />
-    //         </div>
-    //       </div>
+
+                <button type="submit">Đăng bài</button>
+            </form> */}
+
+            <h1>Tạo bài đăng</h1>  
+            <form className='post-form'>              
+                <div>
+                    <label for="content">Nội dung bài đăng:</label>
+                    <textarea id="content" name="content" required></textarea>
+                </div>
+                <button type="submit">Đăng bài</button>
+            </form>
+        </div>
     );
 };
 
