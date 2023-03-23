@@ -13,23 +13,29 @@ const Forum = (props) => {
   return (
     <div className="forum main-container">
       <div className="forum-nav">
-        <span>Diễn đàn trao đổi môn học</span>
-        <span className="right"><Link to={"/forum-create"}>Tạo bài đăng</Link></span>
+        <h3>
+          <span className="mb-5">Diễn đàn trao đổi môn học</span>
+          <button className="right mb-5">
+            <Link style={{ color: "white" }} to={"/forum-create"}>
+              Tạo bài đăng
+            </Link>
+          </button>
+        </h3>
       </div>
       <br></br>
       {questionList.map((el) => (
         <div className="forum-content">
           <ul>
-            <li>
-              <span >{el.title}</span> <br></br>
-              <span >{el.user}</span>
+            <li class="px-2 py-3 border-top">
+              <span><Link to={"/forum-post"}>{el.title}</Link></span>
+              <span>{el.user}</span>
             </li>
           </ul>
         </div>
       ))}
     </div>
   );
-  //mock data, show 5 câu hỏi
+  //mock data, show 4 câu hỏi
 };
 
 export default Forum;

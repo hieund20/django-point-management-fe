@@ -10,6 +10,7 @@ import InputScore from "./pages/input-scores";
 import UserDetail from "./pages/user-detail";
 import Forum from "./pages/forum";
 import ForumCreate from "./pages/forum-create";
+import ForumPost from "./pages/forum-post";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route exact path="/user-detail/:id" element={<UserDetail />}></Route>
           <Route exact path="/forum" element={<Forum />}></Route>
           <Route exact path="/forum-create" element={<ForumCreate />}></Route>
+          <Route exact path="/forum-post" element={<ForumPost />}></Route>
         </Routes>
       </Router>
       <Footer />

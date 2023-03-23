@@ -1,27 +1,21 @@
 .forum {
   .forum-nav {
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: xx-large;
-    display: block;
     .right {
-      display: inline-block;
       float: right;
       border-style: solid;
-      border-color: cornflowerblue;
+      border-color: #5762fb;
       border-width: 5px;
-      background-color: darkturquoise;
+      background-color: #5762fb;
       border-radius: 20px;
     }
   }
 
   .forum-content {
-    display: block;
-    border-style: solid;
-    border-color: black;
-    border-width: 2px;
-    background-color: gainsboro;
-    border-radius: 5px;
-    margin: 10px;
+    ul {
+      list-style-type: none;
+    }
+    span {
+      margin-right: 80px;
+    }
   }
 }
