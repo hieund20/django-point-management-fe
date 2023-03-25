@@ -8,8 +8,8 @@ import MyCourses from "./pages/my-courses";
 import CourseDetail from "./pages/course-detail";
 import InputScore from "./pages/input-scores";
 import UserDetail from "./pages/user-detail";
-import Forum from "./pages/forum";
-import ForumCreate from "./pages/forum-create";
+import ForumPost from "./pages/forum-post";
+import ForumPostDetail from "./pages/forum-post-detail";
 
 function App() {
   return (
@@ -27,8 +27,16 @@ function App() {
             element={<InputScore />}
           ></Route>
           <Route exact path="/user-detail/:id" element={<UserDetail />}></Route>
-          <Route exact path="/forum/:course_id" element={<Forum />}></Route>
-          <Route exact path="/forum-create" element={<ForumCreate />}></Route>
+          <Route
+            exact
+            path="/forum-post/:course_id"
+            element={<ForumPost />}
+          ></Route>
+          <Route
+            exact
+            path="/forum-post-detail/:id"
+            element={<ForumPostDetail />}
+          ></Route>
         </Routes>
       </Router>
       <Footer />

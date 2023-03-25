@@ -4,6 +4,7 @@ import {
   courseDetailReducer,
   courseMemberReducer,
 } from "./courseReducer";
+import { forumPostAnswerListReducer } from "./forumPostAnswerReducer";
 import {
   forumPostDetailReducer,
   forumPostListReducer,
@@ -35,6 +36,7 @@ const RootReducer = combineReducers({
   scoreByUserAndCourse: getScoreByUserAndCourseReducer,
   forumPostList: forumPostListReducer,
   forumPostDetail: forumPostDetailReducer,
+  forumPostAnswerList: forumPostAnswerListReducer,
 });
 
 export default RootReducer;

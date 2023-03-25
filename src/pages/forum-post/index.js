@@ -10,7 +10,7 @@ import {
 } from "../../store/actions/forumPostAction";
 import "./style.scss";
 
-const Forum = (props) => {
+const ForumPost = (props) => {
   const dispatch = useDispatch();
   let { course_id } = useParams();
   const currentUser = useSelector((state) => state.userDetail);
@@ -19,13 +19,6 @@ const Forum = (props) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isOpenCreate, setOpenCreate] = useState(false);
   const [toast, setToast] = useState(null);
-
-  const questionList = [
-    { title: "Thắc mắc điểm", user: "Nguyễn Văn A" },
-    { title: "Thắc mắc điểm", user: "Nguyễn Văn A" },
-    { title: "Thắc mắc điểm", user: "Nguyễn Văn A" },
-    { title: "Thắc mắc điểm", user: "Nguyễn Văn A" },
-  ];
 
   const fetchForumPostListByCourseId = async () => {
     await dispatch(getForumPostListByCourseID({ course_id: course_id }));
@@ -51,8 +44,6 @@ const Forum = (props) => {
           },
         })
       );
-
-      console.log("check res", res);
 
       if (res && res.status === 201) {
         setToast(<Toast message={"Tạo bài đăng thành công"} success={true} />);
@@ -132,7 +123,7 @@ const Forum = (props) => {
             className="forum-content mt-4 d-flex justify-content-between"
             key={el.id}
           >
-            <Link>
+            <Link to={`/forum-post-detail/${el.id}`}>
               <span>{el.title}</span>
             </Link>
             <span>{el.created_date}</span>
@@ -143,4 +134,4 @@ const Forum = (props) => {
   );
 };
 
-export default Forum;
+export default ForumPost;
