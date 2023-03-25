@@ -27,7 +27,7 @@ const Forum = (props) => {
         <div className="forum-content">
           <ul>
             <li class="px-2 py-3 border-top">
-              <span><Link to={"/forum-post"}>{el.title}</Link></span>
+              <span id="post-title"><Link to={"/forum-post"}>{el.title}</Link></span>
               <span>{el.user}</span>
             </li>
           </ul>

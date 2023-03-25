@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCourseList } from "../../store/actions/courseAction";
+import "./style.scss";
 
 const MyCourses = (props) => {
   const dispatch = useDispatch();

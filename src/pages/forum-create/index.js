@@ -1,12 +1,10 @@
-import React from 'react';
+import React from "react";
 import "./style.scss";
 
-
 const ForumCreate = () => {
-    
-    return (
-        <div>
-            {/* <h1>Tạo bài đăng</h1>
+  return (
+    <div>
+      {/* <h1>Tạo bài đăng</h1>
             <form>
                 
                 <div>
@@ -22,16 +20,16 @@ const ForumCreate = () => {
                 <button type="submit">Đăng bài</button>
             </form> */}
 
-            <h1>Tạo bài đăng</h1>  
-            <form className='post-form'>              
-                <div>
-                    <label for="content">Nội dung bài đăng:</label>
-                    <textarea id="content" name="content" required></textarea>
-                </div>
-                <button type="submit">Đăng bài</button>
-            </form>
+      <h1>Tạo bài đăng</h1>
+      <form className="post-form">
+        <div>
+          <label for="content">Nội dung bài đăng:</label>
+          <textarea id="content" name="content" required></textarea>
         </div>
-    );
+        <button type="submit">Đăng bài</button>
+      </form>
+    </div>
+  );
 };
 
 export default ForumCreate;

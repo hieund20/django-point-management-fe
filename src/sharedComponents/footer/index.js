@@ -9,8 +9,7 @@ const Footer = (props) => {
       </div>
       <div>
         <p>
-          This is a modified jumbotron that occupies the entire horizontal space
-          of its parent.
+          Created by Hieu & Minh &copy;2023.
         </p>
       </div>
     </div>

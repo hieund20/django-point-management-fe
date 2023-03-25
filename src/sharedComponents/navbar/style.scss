@@ -1,6 +1,19 @@
 .navbar-container {
-    width: 100%;
-    & .navbar {
-        background-color: #5762fb !important;
+  width: 100%;
+  & .navbar {
+    background-color: #5762fb !important;
+    .navbar-brand {
+      color: white;
     }
+    #navbarNavDropdown {
+      ul {
+        li {
+          span {
+            color: white;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
 }
