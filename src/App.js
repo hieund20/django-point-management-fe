@@ -11,7 +11,6 @@ import UserDetail from "./pages/user-detail";
 import Forum from "./pages/forum";
 import ForumCreate from "./pages/forum-create";
 
-
 function App() {
   return (
     <div className="App">
@@ -20,7 +19,6 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          {/* <Route exact path="/"></Route> */}
           <Route path="/my-course" element={<MyCourses />}></Route>
           <Route exact path="/my-course/:id" element={<CourseDetail />}></Route>
           <Route
@@ -29,7 +27,7 @@ function App() {
             element={<InputScore />}
           ></Route>
           <Route exact path="/user-detail/:id" element={<UserDetail />}></Route>
-          <Route exact path="/forum" element={<Forum />}></Route>
+          <Route exact path="/forum/:course_id" element={<Forum />}></Route>
           <Route exact path="/forum-create" element={<ForumCreate />}></Route>
         </Routes>
       </Router>

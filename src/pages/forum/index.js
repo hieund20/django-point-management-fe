@@ -1,8 +1,25 @@
-import React from "react";
-import "./style.scss";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import Toast from "../../sharedComponents/toast";
+import {
+  getForumPostListByCourseID,
+  postForumPost,
+} from "../../store/actions/forumPostAction";
+import "./style.scss";
 
 const Forum = (props) => {
+  const dispatch = useDispatch();
+  let { course_id } = useParams();
+  const currentUser = useSelector((state) => state.userDetail);
+  const forumPostListByCourseId = useSelector((state) => state.forumPostList);
+  const { register, handleSubmit } = useForm();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isOpenCreate, setOpenCreate] = useState(false);
+  const [toast, setToast] = useState(null);
+
   const questionList = [
     { title: "Thắc mắc điểm", user: "Nguyễn Văn A" },
     { title: "Thắc mắc điểm", user: "Nguyễn Văn A" },
@@ -10,26 +27,120 @@ const Forum = (props) => {
     { title: "Thắc mắc điểm", user: "Nguyễn Văn A" },
   ];
 
+  const fetchForumPostListByCourseId = async () => {
+    await dispatch(getForumPostListByCourseID({ course_id: course_id }));
+  };
+
+  const onSubmit = async (data) => {
+    const { title, body } = data;
+
+    let isInvalid = false;
+    if (!title || !body) {
+      setErrorMessage("Bạn phải nhập đủ thông tin cho các trường");
+      isInvalid = true;
+    }
+
+    if (!isInvalid) {
+      const res = await dispatch(
+        postForumPost({
+          body: {
+            title: title,
+            body: body,
+            user: currentUser.data.id,
+            course: course_id,
+          },
+        })
+      );
+
+      console.log("check res", res);
+
+      if (res && res.status === 201) {
+        setToast(<Toast message={"Tạo bài đăng thành công"} success={true} />);
+        setOpenCreate(false);
+        fetchForumPostListByCourseId();
+      } else {
+        setToast(
+          <Toast message={"Tạo bài đăng không thành công"} success={false} />
+        );
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchForumPostListByCourseId();
+  }, []);
+
   return (
     <div className="forum main-container">
-      <div className="forum-nav">
-        <span>Diễn đàn trao đổi môn học</span>
-        <button className="right"><Link to={"/forum-create"}>Tạo bài đăng</Link></button>
+      <div className="forum-nav d-flex justify-content-between">
+        <h3>Diễn đàn trao đổi môn học</h3>
+        <button
+          className="cursor-pointer btn-submit p-2"
+          onClick={() => setOpenCreate(true)}
+        >
+          Tạo bài đăng
+        </button>
       </div>
       <br></br>
-      {questionList.map((el) => (
-        <div className="forum-content">
-          <ul>
-            <li>
-              <span >{el.title}</span> <br></br>
-              <span >{el.user}</span>
-            </li>
-          </ul>
+
+      {isOpenCreate && (
+        <div style={{ margin: "0 auto", width: "70%" }}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-3 mt-3">
+              <label htmlFor="title">
+                <b>Tiêu đề</b>
+              </label>
+              <input
+                {...register("title")}
+                placeholder="Nhập tiêu đề..."
+                id="title"
+                style={{ width: "100%" }}
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="body">
+                <b>Nội dung</b>
+              </label>
+              <textarea
+                {...register("body")}
+                placeholder="Nhập nội dung..."
+                id="body"
+                style={{ width: "100%" }}
+              ></textarea>
+            </div>
+
+            {/* Error message */}
+            {errorMessage && (
+              <p className="mt-4 mb-4" style={{ color: "red" }}>
+                {errorMessage}
+              </p>
+            )}
+
+            <input
+              type={"submit"}
+              className="cursor-pointer btn-submit p-2"
+              value={"Gửi bài đăng"}
+            />
+          </form>
         </div>
-      ))}
+      )}
+
+      {forumPostListByCourseId.data &&
+        forumPostListByCourseId.data.results.map((el) => (
+          <div
+            className="forum-content mt-4 d-flex justify-content-between"
+            key={el.id}
+          >
+            <Link>
+              <span>{el.title}</span>
+            </Link>
+            <span>{el.created_date}</span>
+          </div>
+        ))}
+      {toast}
     </div>
   );
-  //mock data, show 5 câu hỏi
 };
 
 export default Forum;

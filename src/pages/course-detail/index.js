@@ -156,9 +156,7 @@ const CourseDetail = (props) => {
 
           {currentTab === 0 && (
             <div className="course-section">
-              <h4>
-                <Link to={"/forum"}>Diễn đàn môn học</Link>
-              </h4>
+              <Link to={`/forum/${id}`}>Diễn đàn môn học</Link>
             </div>
           )}
 

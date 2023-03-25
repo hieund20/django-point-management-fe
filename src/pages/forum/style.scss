@@ -1,27 +1,14 @@
 .forum {
-  .forum-nav {
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: xx-large;
-    display: block;
-    .right {
-      display: inline-block;
-      float: right;
-      border-style: solid;
-      border-color: cornflowerblue;
-      border-width: 5px;
-      background-color: darkturquoise;
-      border-radius: 20px;
+  .link-white-text {
+    color: white;
+    text-decoration: none;
+    &:hover {
+      color: white;
     }
   }
 
   .forum-content {
-    display: block;
-    border-style: solid;
-    border-color: black;
-    border-width: 2px;
-    background-color: gainsboro;
-    border-radius: 5px;
-    margin: 10px;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 12px;
   }
 }
