@@ -10,6 +10,7 @@ import InputScore from "./pages/input-scores";
 import UserDetail from "./pages/user-detail";
 import ForumPost from "./pages/forum-post";
 import ForumPostDetail from "./pages/forum-post-detail";
+import UserProfile from "./pages/user-profile";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             path="/forum-post-detail/:id"
             element={<ForumPostDetail />}
           ></Route>
+          <Route exact path="/user-profile" element={<UserProfile />}></Route>
         </Routes>
       </Router>
       <Footer />

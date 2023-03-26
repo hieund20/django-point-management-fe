@@ -18,11 +18,11 @@ const Register = (props) => {
     const {
       last_name,
       first_name,
-      className,
       email,
       username,
       password,
       confirm_password,
+      avatar,
     } = data;
 
     let isInvalid = false;
@@ -32,7 +32,8 @@ const Register = (props) => {
       !email ||
       !username ||
       !password ||
-      !confirm_password
+      !confirm_password ||
+      !avatar
     ) {
       setErrorMessage("Bạn phải nhập đủ thông tin cho các trường bắt buộc");
       isInvalid = true;
@@ -53,16 +54,14 @@ const Register = (props) => {
       const body = {
         last_name: last_name,
         first_name: first_name,
-        className: className,
         email: email,
         username: username,
         password: password,
+        avatar: avatar,
+        courses: [1, 2],
       };
-      if (!className) delete body.className;
-
       const res = await dispatch(registerUser({ body: body }));
       if (res && res.status === 201) {
-        console.log("res", res);
         setToast(
           <Toast
             message={
@@ -76,10 +75,7 @@ const Register = (props) => {
         }, 3000);
       } else {
         setToast(
-          <Toast
-            message={`${res.status} - ${res.statusText}`}
-            success={false}
-          />
+          <Toast message={`Lỗi khi đăng ký người dùng`} success={false} />
         );
       }
       setErrorMessage("");
@@ -120,21 +116,6 @@ const Register = (props) => {
               <input
                 {...register("first_name")}
                 id="first_name"
-                style={{ width: "100%" }}
-              />
-            </div>
-          </div>
-
-          <div className="row justify-content-between mb-3">
-            <div className="col-4 text-left">
-              <label htmlFor="className">
-                <b>Lớp</b>
-              </label>
-            </div>
-            <div className="col-8">
-              <input
-                {...register("className")}
-                id="className"
                 style={{ width: "100%" }}
               />
             </div>
@@ -204,6 +185,23 @@ const Register = (props) => {
                 {...register("confirm_password")}
                 style={{ width: "100%" }}
                 type="password"
+              />
+            </div>
+          </div>
+
+          <div className="row mb-3">
+            <div className="col-4 text-left">
+              <label htmlFor="confirm_password">
+                <b>
+                  Avatar <span className="red-dot">*</span>
+                </b>
+              </label>
+            </div>
+            <div className="col-8">
+              <input
+                {...register("avatar")}
+                style={{ width: "100%" }}
+                type="file"
               />
             </div>
           </div>
