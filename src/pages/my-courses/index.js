@@ -1,3 +1,4 @@
+import { Pagination } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -48,6 +49,10 @@ const MyCourses = (props) => {
               </div>
             </Link>
           ))}
+      </div>
+
+      <div className="mt-5">
+        <Pagination count={5} shape="rounded" color="primary" />
       </div>
     </div>
   );

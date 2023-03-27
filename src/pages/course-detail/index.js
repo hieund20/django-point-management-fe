@@ -1,3 +1,4 @@
+import { Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -197,7 +198,9 @@ const CourseDetail = (props) => {
                     onChange={(e) => setFile(e.target.files[0])}
                     id="upload-file"
                   />
-                  <label for="upload-file" className="mr-2 ml-5">Chọn file CSV</label>
+                  <label for="upload-file" className="mr-2 ml-5">
+                    Chọn file CSV
+                  </label>
                   <button
                     className="btn-green"
                     onClick={() => importScoreCSV()}
@@ -283,6 +286,10 @@ const CourseDetail = (props) => {
                     ))}
                 </tbody>
               </table>
+
+              <div className="mt-5">
+                <Pagination count={5} shape="rounded" color="primary" />
+              </div>
             </div>
           )}
 
