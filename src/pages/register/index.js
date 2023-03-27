@@ -5,7 +5,9 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { OU_EDU_EMAIL_REGEX } from "../../config/constants";
 import Toast from "../../sharedComponents/toast";
+import { getCourseList } from "../../store/actions/courseAction";
 import { registerUser } from "../../store/actions/userAction";
+import "./style.scss";
 
 const Register = (props) => {
   const { register, handleSubmit } = useForm();
@@ -13,6 +15,13 @@ const Register = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [toast, setToast] = useState(null);
+  const courseList = useSelector((state) => state.courseList);
+  const { data } = courseList;
+  const [selected, setSelected] = useState([]);
+
+  const fetchCourseList = () => {
+    dispatch(getCourseList());
+  };
 
   const onSubmit = async (data) => {
     const {
@@ -81,6 +90,10 @@ const Register = (props) => {
       setErrorMessage("");
     }
   };
+
+  useEffect(() => {
+    fetchCourseList();
+  }, []);
 
   return (
     <div className="register main-container">
@@ -191,7 +204,7 @@ const Register = (props) => {
 
           <div className="row mb-3">
             <div className="col-4 text-left">
-              <label htmlFor="confirm_password">
+              <label htmlFor="avatar">
                 <b>
                   Avatar <span className="red-dot">*</span>
                 </b>
@@ -203,6 +216,25 @@ const Register = (props) => {
                 style={{ width: "100%" }}
                 type="file"
               />
+            </div>
+          </div>
+
+          <div className="row mb-3">
+            <div className="col-4 text-left">
+              <label htmlFor="courses">
+                <b>
+                  Khóa học <span className="red-dot">*</span>
+                </b>
+              </label>
+            </div>
+            <div className="courses-list col-8">
+              {data.results.map((el) => (
+                <div key={el.id}>
+                  <input className="cursor-pointer" type={"checkbox"} />
+                  &nbsp;
+                  <span>{el.name}</span>
+                </div>
+              ))}
             </div>
           </div>
 

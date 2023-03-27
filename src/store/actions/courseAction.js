@@ -6,15 +6,15 @@ export const getCourseList = (payload) => async (dispatch) => {
       type: "GET_COURSE_LIST_LOADING",
     });
 
-    const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
-    const { access_token, token_type } = outh2;
+    // const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
+    // const { access_token, token_type } = outh2;
     const res = await axios.get(
-      `https://django-point-management.herokuapp.com/course/`,
-      {
-        headers: {
-          Authorization: `${token_type} ${access_token}`,
-        },
-      }
+      `https://django-point-management.herokuapp.com/course/`
+      // {
+      //   headers: {
+      //     Authorization: `${token_type} ${access_token}`,
+      //   },
+      // }
     );
 
     dispatch({
