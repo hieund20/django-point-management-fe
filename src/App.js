@@ -8,10 +8,9 @@ import MyCourses from "./pages/my-courses";
 import CourseDetail from "./pages/course-detail";
 import InputScore from "./pages/input-scores";
 import UserDetail from "./pages/user-detail";
-import Forum from "./pages/forum";
-import ForumCreate from "./pages/forum-create";
 import ForumPost from "./pages/forum-post";
-
+import ForumPostDetail from "./pages/forum-post-detail";
+import UserProfile from "./pages/user-profile";
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          {/* <Route exact path="/"></Route> */}
           <Route path="/my-course" element={<MyCourses />}></Route>
           <Route exact path="/my-course/:id" element={<CourseDetail />}></Route>
           <Route
@@ -30,9 +28,17 @@ function App() {
             element={<InputScore />}
           ></Route>
           <Route exact path="/user-detail/:id" element={<UserDetail />}></Route>
-          <Route exact path="/forum" element={<Forum />}></Route>
-          <Route exact path="/forum-create" element={<ForumCreate />}></Route>
-          <Route exact path="/forum-post" element={<ForumPost />}></Route>
+          <Route
+            exact
+            path="/forum-post/:course_id"
+            element={<ForumPost />}
+          ></Route>
+          <Route
+            exact
+            path="/forum-post-detail/:id"
+            element={<ForumPostDetail />}
+          ></Route>
+          <Route exact path="/user-profile" element={<UserProfile />}></Route>
         </Routes>
       </Router>
       <Footer />

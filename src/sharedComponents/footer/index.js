@@ -8,9 +8,7 @@ const Footer = (props) => {
         <h3>Hệ thống quản lý điểm sinh viên</h3>
       </div>
       <div>
-        <p>
-          Created by Hieu & Minh &copy;2023.
-        </p>
+        <p>Created by Hieu & Minh &copy;2023</p>
       </div>
     </div>
   );

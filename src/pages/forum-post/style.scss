@@ -1,0 +1,14 @@
+.forum {
+  .link-white-text {
+    color: white;
+    text-decoration: none;
+    &:hover {
+      color: white;
+    }
+  }
+
+  .forum-content {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 12px;
+  }
+}

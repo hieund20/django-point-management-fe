@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import { accountIcon, editIcon, importFileIcon } from "../../assets/svg";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router";
+import {Link} from "react-router-dom";
+import {accountIcon, editIcon, importFileIcon} from "../../assets/svg";
 import Tabs from "../../sharedComponents/tabs";
 import Toast from "../../sharedComponents/toast";
 import {
@@ -26,8 +26,8 @@ const CourseDetail = (props) => {
   const userScore = useSelector((state) => state.userScore);
   const courseMembers = useSelector((state) => state.courseMembers);
   const currentUser = useSelector((state) => state.userDetail);
-  const { data } = currentUser;
-  let { id } = useParams();
+  const {data} = currentUser;
+  let {id} = useParams();
   const [currentTab, setCurrentTab] = useState(0);
   //Search
   const [searchValue, setSearchValue] = useState({
@@ -40,19 +40,19 @@ const CourseDetail = (props) => {
   const [file, setFile] = useState(null);
 
   const fetchCourseDetail = () => {
-    dispatch(getCourseDetail({ id: id }));
+    dispatch(getCourseDetail({id: id}));
   };
 
   const fetchUserScore = () => {
-    dispatch(getScoresByCourse({ id: id }));
+    dispatch(getScoresByCourse({id: id}));
   };
 
   const fetchCourseMember = () => {
-    dispatch(getCourseMembers({ id: id }));
+    dispatch(getCourseMembers({id: id}));
   };
 
   const fetchCourseMemberByName = () => {
-    const { first_name, last_name } = searchValue;
+    const {first_name, last_name} = searchValue;
     dispatch(
       getUserListByName({
         course_id: id,
@@ -86,13 +86,13 @@ const CourseDetail = (props) => {
   };
 
   const onExportScoreToCSV = async () => {
-    const res = await dispatch(getScoreCSV({ course_id: id }));
+    const res = await dispatch(getScoreCSV({course_id: id}));
 
     if (res && res.status === 200) {
-      const { data } = res;
+      const {data} = res;
 
       //Create csv file
-      const blob = new Blob([data], { type: "text/csv" });
+      const blob = new Blob([data], {type: "text/csv"});
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -112,13 +112,13 @@ const CourseDetail = (props) => {
   };
 
   const onExportScoreToPDF = async () => {
-    const res = await dispatch(getScorePDF({ course_id: id }));
+    const res = await dispatch(getScorePDF({course_id: id}));
 
     if (res && res.status === 200) {
-      const { data } = res;
+      const {data} = res;
 
       //Create csv file
-      const blob = new Blob([data], { type: "application/pdf" });
+      const blob = new Blob([data], {type: "application/pdf"});
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -157,7 +157,7 @@ const CourseDetail = (props) => {
           {currentTab === 0 && (
             <div className="course-section">
               <h3 className="mb-5">
-                <Link to={"/forum"}>Diễn đàn môn học</Link>
+                <Link to={`/forum-post/${id}`}>Diễn đàn môn học</Link>
               </h3>
             </div>
           )}
@@ -167,10 +167,10 @@ const CourseDetail = (props) => {
               <div className="d-flex mb-3">
                 <div
                   className="d-flex"
-                  style={{ marginRight: 0, marginLeft: "auto" }}
+                  style={{marginRight: 0, marginLeft: "auto"}}
                 >
                   <input
-                    style={{ marginRight: 12 }}
+                    style={{marginRight: 12}}
                     placeholder="Họ sinh viên..."
                     value={searchValue.last_name}
                     onChange={(e) =>
@@ -184,7 +184,7 @@ const CourseDetail = (props) => {
                     <b>-</b>
                   </div>
                   <input
-                    style={{ marginLeft: 12 }}
+                    style={{marginLeft: 12}}
                     placeholder="Tên sinh viên..."
                     value={searchValue.first_name}
                     onChange={(e) =>
@@ -200,28 +200,29 @@ const CourseDetail = (props) => {
                   <span>|</span>
                 </div>
 
-                <div style={{ marginRight: 0, marginLeft: 0 }}>
+                <div style={{marginRight: 0, marginLeft: 0}}>
                   <input
                     type="file"
                     onChange={(e) => setFile(e.target.files[0])}
                   />
-                  <button onClick={() => importScoreCSV()}>
-                    <img
-                      src={importFileIcon}
-                      alt="import-file-icon"
-                      width={20}
-                      height={20}
-                    />
+                  <button
+                    className="btn-green"
+                    onClick={() => importScoreCSV()}
+                  >
                     Import bảng điểm
                   </button>
                 </div>
 
-                <div style={{ marginRight: 0, marginLeft: 8 }}>
-                  <button onClick={() => onExportScoreToCSV()}>
+                <div style={{marginRight: 0, marginLeft: 8}}>
+                  <button
+                    onClick={() => onExportScoreToCSV()}
+                    className="btn-green"
+                  >
                     Xuất điểm CSV
                   </button>
                   <button
-                    style={{ marginLeft: 8 }}
+                    className="btn-green"
+                    style={{marginLeft: 8}}
                     onClick={() => onExportScoreToPDF()}
                   >
                     Xuất điểm PDF
@@ -265,7 +266,7 @@ const CourseDetail = (props) => {
                                 alt="edit-icon"
                                 width={15}
                                 height={15}
-                                style={{ marginLeft: 8 }}
+                                style={{marginLeft: 8}}
                               />
                             </Link>
 
@@ -275,14 +276,14 @@ const CourseDetail = (props) => {
                               data-placement="top"
                               title="Xem thông tin sinh viên"
                               to={`/user-detail/${el.id}`}
-                              style={{ marginLeft: 4 }}
+                              style={{marginLeft: 4}}
                             >
                               <img
                                 src={accountIcon}
                                 alt="edit-icon"
                                 width={15}
                                 height={15}
-                                style={{ marginLeft: 8 }}
+                                style={{marginLeft: 8}}
                               />
                             </Link>
                           </td>

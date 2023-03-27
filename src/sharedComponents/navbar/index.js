@@ -82,6 +82,13 @@ const Navbar = (props) => {
                   <a
                     className="dropdown-item"
                     href="#"
+                    onClick={() => navigate("/user-profile")}
+                  >
+                    Hồ sơ
+                  </a>
+                  <a
+                    className="dropdown-item"
+                    href="#"
                     onClick={() => logout()}
                   >
                     Đăng xuất

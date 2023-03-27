@@ -104,11 +104,10 @@ const Login = (props) => {
           )}
 
           <input
-            className="cursor-pointer"
+            className="cursor-pointer btn-submit"
             style={{ width: "100%", height: 50 }}
             type="submit"
             value={"Đăng nhập"}
-            id="password"
           />
         </form>
         <p className="mt-3">

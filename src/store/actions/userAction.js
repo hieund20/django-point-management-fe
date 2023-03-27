@@ -64,11 +64,23 @@ export const registerUser = (payload) => async (dispatch) => {
 
     const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
     const { access_token, token_type } = outh2;
+    const { body } = payload;
+
+    const formData = new FormData();
+    formData.append("first_name", body.first_name);
+    formData.append("last_name", body.last_name);
+    formData.append("email", body.email);
+    formData.append("username", body.username);
+    formData.append("password", body.password);
+    formData.append("avatar", body.avatar[0]);
+
+    body.courses.forEach((el) => {
+      formData.append("courses", el);
+    });
+
     const res = await axios.post(
       `https://django-point-management.herokuapp.com/user/`,
-      {
-        ...payload.body,
-      },
+      formData,
       {
         headers: {
           Authorization: `${token_type} ${access_token}`,

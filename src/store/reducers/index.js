@@ -4,7 +4,16 @@ import {
   courseDetailReducer,
   courseMemberReducer,
 } from "./courseReducer";
-import { getScoreByUserAndCourseReducer, postUserScoreReducer, putUserScoreReducer } from "./scoreReducer";
+import { forumPostAnswerListReducer } from "./forumPostAnswerReducer";
+import {
+  forumPostDetailReducer,
+  forumPostListReducer,
+} from "./forumPostReducer";
+import {
+  getScoreByUserAndCourseReducer,
+  postUserScoreReducer,
+  putUserScoreReducer,
+} from "./scoreReducer";
 import {
   loginUserReducer,
   registerUserReducer,
@@ -24,7 +33,10 @@ const RootReducer = combineReducers({
   userDetailById: userDetailByIdReducer,
   postUserScore: postUserScoreReducer,
   putUserScore: putUserScoreReducer,
-  scoreByUserAndCourse: getScoreByUserAndCourseReducer
+  scoreByUserAndCourse: getScoreByUserAndCourseReducer,
+  forumPostList: forumPostListReducer,
+  forumPostDetail: forumPostDetailReducer,
+  forumPostAnswerList: forumPostAnswerListReducer,
 });
 
 export default RootReducer;
