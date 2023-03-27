@@ -22,9 +22,7 @@ const Navbar = (props) => {
   return (
     <div className="navbar-container">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <Link className="navbar-brand" to="/my-course">
-          E-Point Management
-        </Link>
+        <span className="navbar-brand">E-Point Management</span>
         <button
           className="navbar-toggler"
           type="button"
@@ -38,21 +36,27 @@ const Navbar = (props) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav d-flex align-items-center">
-            <li className="nav-item active">
-              <Link className="nav-link" to="/my-course">
-                <span>Các khóa học của tôi</span>
-              </Link>
-            </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/register">
-                <span>Đăng ký</span>
-              </Link>
+              {data && (
+                <Link className="nav-link" to="/my-course">
+                  <span>Các khóa học của tôi</span>
+                </Link>
+              )}
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/login">
-                <span>Đăng nhập</span>
-              </Link>
-            </li>
+            {!data && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">
+                    <span>Đăng ký</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">
+                    <span>Đăng nhập</span>
+                  </Link>
+                </li>
+              </>
+            )}
             {data && (
               <li
                 className="nav-item dropdown"
@@ -67,7 +71,11 @@ const Navbar = (props) => {
                   aria-expanded="false"
                 >
                   <img
-                    src={defaultAvatar}
+                    src={
+                      data.avatar
+                        ? `https://django-point-management.herokuapp.com${data.avatar}`
+                        : defaultAvatar
+                    }
                     alt="avatar"
                     width={20}
                     height={20}
@@ -79,13 +87,6 @@ const Navbar = (props) => {
                   className="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => navigate("/user-profile")}
-                  >
-                    Hồ sơ
-                  </a>
                   <a
                     className="dropdown-item"
                     href="#"

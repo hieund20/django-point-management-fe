@@ -162,7 +162,7 @@ const CourseDetail = (props) => {
 
           {currentTab === 1 && (
             <div className="student-list-section">
-              <div className="d-flex mb-3">
+              <div className="d-flex mb-5 mt-5">
                 <div
                   className="d-flex"
                   style={{ marginRight: 0, marginLeft: "auto" }}
@@ -235,7 +235,6 @@ const CourseDetail = (props) => {
                     <th scope="col">Họ và tên</th>
                     <th scope="col">Email</th>
                     <th scope="col">Vai trò</th>
-                    <th scope="col">Lớp sinh viên</th>
                     {data.is_staff && <th scope="col"></th>}
                   </tr>
                 </thead>
@@ -249,7 +248,6 @@ const CourseDetail = (props) => {
                         }`}</td>
                         <td>{el.email || "--"}</td>
                         <td>{el.is_staff ? "Giảng viên" : "Sinh viên"}</td>
-                        <td>{el.className || "--"}</td>
                         {data.is_staff && (
                           <td>
                             <Link

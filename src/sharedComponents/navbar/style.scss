@@ -2,5 +2,14 @@
     width: 100%;
     & .navbar {
         background-color: #5762fb !important;
+        color: white;
+
+        & .navbar-brand {
+            color: white;
+        }
+
+        & .nav-link {
+            color: white;
+        }
     }
 }
