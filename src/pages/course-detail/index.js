@@ -168,7 +168,6 @@ const CourseDetail = (props) => {
                   style={{ marginRight: 0, marginLeft: "auto" }}
                 >
                   <input
-                    style={{ marginRight: 12 }}
                     placeholder="Họ sinh viên..."
                     value={searchValue.last_name}
                     onChange={(e) =>
@@ -178,11 +177,8 @@ const CourseDetail = (props) => {
                       })
                     }
                   />
-                  <div>
-                    <b>-</b>
-                  </div>
                   <input
-                    style={{ marginLeft: 12 }}
+                    className="ml-2"
                     placeholder="Tên sinh viên..."
                     value={searchValue.first_name}
                     onChange={(e) =>
@@ -194,15 +190,14 @@ const CourseDetail = (props) => {
                   />
                 </div>
 
-                <div className="mr-3 ml-3">
-                  <span>|</span>
-                </div>
-
-                <div style={{ marginRight: 0, marginLeft: 0 }}>
+                <div className="mr-0 ml-0">
                   <input
                     type="file"
+                    style={{ display: "none" }}
                     onChange={(e) => setFile(e.target.files[0])}
+                    id="upload-file"
                   />
+                  <label for="upload-file" className="mr-2 ml-5">Chọn file CSV</label>
                   <button
                     className="btn-green"
                     onClick={() => importScoreCSV()}
@@ -211,7 +206,7 @@ const CourseDetail = (props) => {
                   </button>
                 </div>
 
-                <div style={{ marginRight: 0, marginLeft: 8 }}>
+                <div className="mr-0 ml-2">
                   <button
                     onClick={() => onExportScoreToCSV()}
                     className="btn-green"
