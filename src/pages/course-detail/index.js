@@ -150,7 +150,7 @@ const CourseDetail = (props) => {
 
   return (
     <div className="course-detail main-container">
-      {courseDetail && (
+      {courseDetail.data && (
         <div>
           <h3 className="mb-5">{courseDetail.data.name}</h3>
           <Tabs tabIndex={setCurrentTab} isShowScoreTab={!data.is_staff} />

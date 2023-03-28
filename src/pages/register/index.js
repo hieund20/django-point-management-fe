@@ -17,7 +17,7 @@ const Register = (props) => {
   const [toast, setToast] = useState(null);
   const courseList = useSelector((state) => state.courseList);
   const { data } = courseList;
-  const [selected, setSelected] = useState([]);
+  const [courseListSelected, setCourseListSelected] = useState([]);
 
   const fetchCourseList = () => {
     dispatch(getCourseList());
@@ -57,6 +57,10 @@ const Register = (props) => {
         setErrorMessage("Mật khẩu và Xác nhận mật khẩu phải trùng nhau");
         isInvalid = true;
       }
+      if (!courseListSelected.length) {
+        setErrorMessage("Vui lòng chọn tối thiểu 1 khóa học");
+        isInvalid = true;
+      }
     }
 
     if (!isInvalid) {
@@ -67,7 +71,7 @@ const Register = (props) => {
         username: username,
         password: password,
         avatar: avatar,
-        courses: [1, 2],
+        courses: courseListSelected,
       };
       const res = await dispatch(registerUser({ body: body }));
       if (res && res.status === 201) {
@@ -89,6 +93,18 @@ const Register = (props) => {
       }
       setErrorMessage("");
     }
+  };
+
+  const handleSelectedCourse = (id) => {
+    const selectedList = [...courseListSelected];
+
+    if (courseListSelected.includes(id)) {
+      selectedList.splice(courseListSelected.indexOf(id), 1);
+    } else {
+      selectedList.push(id);
+    }
+
+    setCourseListSelected(selectedList);
   };
 
   useEffect(() => {
@@ -228,13 +244,18 @@ const Register = (props) => {
               </label>
             </div>
             <div className="courses-list col-8">
-              {data.results.map((el) => (
-                <div key={el.id}>
-                  <input className="cursor-pointer" type={"checkbox"} />
-                  &nbsp;
-                  <span>{el.name}</span>
-                </div>
-              ))}
+              {data.results &&
+                data.results.map((el) => (
+                  <div key={el.id}>
+                    <input
+                      className="cursor-pointer"
+                      type={"checkbox"}
+                      onChange={() => handleSelectedCourse(el.id)}
+                    />
+                    &nbsp;
+                    <span>{el.name}</span>
+                  </div>
+                ))}
             </div>
           </div>
 

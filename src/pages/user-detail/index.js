@@ -27,44 +27,59 @@ const UserDetail = (props) => {
 
   return (
     <div className="user-detail main-container">
-      <div style={{ width: "30%" }}>
-        <h3 className="mb-5">Thông tin người dùng</h3>
-        <div className="row mb-3">
-          <div className="col">
-            <img src={defaultAvatar} alt="avatar" width={50} height={50} />
-          </div>
-        </div>
+      <div style={{ width: "40%" }}>
+        <h3 className="mb-5">Thông tin sinh viên</h3>
 
-        <div className="row">
-          <div className="col">
-            <b>Họ và tên: </b>
-          </div>
-          <div className="col">
-            <span>{`${data.last_name} ${data.first_name}`}</span>
-          </div>
-        </div>
+        {data ? (
+          <>
+            <div className="row mb-3">
+              <div className="col">
+                <img
+                  src={data.avatar_url ? data.avatar_url : defaultAvatar}
+                  alt="avatar"
+                  width={50}
+                  height={50}
+                />
+              </div>
+            </div>
 
-        <div className="row">
-          <div className="col">
-            <b>Email: </b>
-          </div>
-          <div className="col">
-            <span>{data.email || "--"}</span>
-          </div>
-        </div>
+            <div className="row">
+              <div className="col">
+                <b>Họ và tên: </b>
+              </div>
+              <div className="col">
+                <span>{`${data.last_name} ${data.first_name}`}</span>
+              </div>
+            </div>
 
-        <div className="row">
-          <div className="col">
-            <b>Vai trò: </b>
+            <div className="row">
+              <div className="col">
+                <b>Email: </b>
+              </div>
+              <div className="col">
+                <span>{data.email || "--"}</span>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col">
+                <b>Vai trò: </b>
+              </div>
+              <div className="col">
+                {data.is_superuser ? (
+                  <span>Giáo vụ</span>
+                ) : (
+                  <span>{data.is_staff ? "Giảng viên" : "Sinh viên"}</span>
+                )}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div>
+            {" "}
+            <b>Chưa có dữ liệu</b>
           </div>
-          <div className="col">
-            {data.is_superuser ? (
-              <span>Giáo vụ</span>
-            ) : (
-              <span>{data.is_staff ? "Giảng viên" : "Sinh viên"}</span>
-            )}
-          </div>
-        </div>
+        )}
       </div>
       {!data.is_staff && (
         <div style={{ width: "80%" }}>
@@ -82,15 +97,21 @@ const UserDetail = (props) => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>{userScore.data.score1 || "--"}</td>
-                <td>{userScore.data.score2 || "--"}</td>
-                <td>{userScore.data.score3 || "--"}</td>
-                <td>{userScore.data.score4 || "--"}</td>
-                <td>{userScore.data.score5 || "--"}</td>
-                <td>{userScore.data.midterm_score || "--"}</td>
-                <td>{userScore.data.final_score || "--"}</td>
-              </tr>
+              {userScore.data ? (
+                <tr>
+                  <td>{userScore.data.score1 || "--"}</td>
+                  <td>{userScore.data.score2 || "--"}</td>
+                  <td>{userScore.data.score3 || "--"}</td>
+                  <td>{userScore.data.score4 || "--"}</td>
+                  <td>{userScore.data.score5 || "--"}</td>
+                  <td>{userScore.data.midterm_score || "--"}</td>
+                  <td>{userScore.data.final_score || "--"}</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td colSpan={7}>Không có thông tin về điểm</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

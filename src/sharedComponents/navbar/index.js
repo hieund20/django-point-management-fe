@@ -71,11 +71,7 @@ const Navbar = (props) => {
                   aria-expanded="false"
                 >
                   <img
-                    src={
-                      data.avatar
-                        ? `https://django-point-management.herokuapp.com${data.avatar}`
-                        : defaultAvatar
-                    }
+                    src={data.avatar_url ? data.avatar_url : defaultAvatar}
                     alt="avatar"
                     width={20}
                     height={20}
