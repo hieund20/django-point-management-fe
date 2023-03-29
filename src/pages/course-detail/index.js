@@ -158,6 +158,10 @@ const CourseDetail = (props) => {
           {currentTab === 0 && (
             <div className="course-section">
               <Link to={`/forum-post/${id}`}>Diễn đàn môn học</Link>
+              <p
+                className="mt-3"
+                dangerouslySetInnerHTML={{ __html: courseDetail.data.content }}
+              ></p>
             </div>
           )}
 
