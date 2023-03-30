@@ -16,7 +16,7 @@ const Navbar = (props) => {
     dispatch(logoutUser());
     setTimeout(() => {
       navigate("/login");
-    }, 3000);
+    }, 5000);
   };
 
   return (

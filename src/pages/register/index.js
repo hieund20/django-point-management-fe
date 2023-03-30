@@ -15,12 +15,16 @@ const Register = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [toast, setToast] = useState(null);
+  //Course List
   const courseList = useSelector((state) => state.courseList);
   const { data } = courseList;
   const [courseListSelected, setCourseListSelected] = useState([]);
+  const [url, setUrl] = useState(
+    "https://django-point-management.herokuapp.com/course/"
+  );
 
   const fetchCourseList = () => {
-    dispatch(getCourseList());
+    dispatch(getCourseList({ url: url }));
   };
 
   const onSubmit = async (data) => {
@@ -109,7 +113,7 @@ const Register = (props) => {
 
   useEffect(() => {
     fetchCourseList();
-  }, []);
+  }, [url]);
 
   return (
     <div className="register main-container">
@@ -244,6 +248,15 @@ const Register = (props) => {
               </label>
             </div>
             <div className="courses-list col-8">
+              {data.previous && (
+                <div
+                  className="cursor-pointer"
+                  onClick={() => setUrl(data.previous)}
+                >
+                  <span>{"<<< Trước"}</span>
+                </div>
+              )}
+
               {data.results &&
                 data.results.map((el) => (
                   <div key={el.id}>
@@ -256,6 +269,15 @@ const Register = (props) => {
                     <span>{el.name}</span>
                   </div>
                 ))}
+
+              {data.next && (
+                <div
+                  className="cursor-pointer"
+                  onClick={() => setUrl(data.next)}
+                >
+                  <span>{"Sau >>>"}</span>
+                </div>
+              )}
             </div>
           </div>
 
