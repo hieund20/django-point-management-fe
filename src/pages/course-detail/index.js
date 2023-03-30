@@ -39,6 +39,9 @@ const CourseDetail = (props) => {
   const [toast, setToast] = useState(null);
   //File
   const [file, setFile] = useState(null);
+  const [url, setUrl] = useState(
+    `https://django-point-management.herokuapp.com/course/${id}/get_member/`
+  );
 
   const fetchCourseDetail = () => {
     dispatch(getCourseDetail({ id: id }));
@@ -49,7 +52,7 @@ const CourseDetail = (props) => {
   };
 
   const fetchCourseMember = () => {
-    dispatch(getCourseMembers({ id: id }));
+    dispatch(getCourseMembers({ url: url }));
   };
 
   const fetchCourseMemberByName = () => {
@@ -141,8 +144,11 @@ const CourseDetail = (props) => {
   useEffect(() => {
     fetchCourseDetail();
     fetchUserScore();
-    fetchCourseMember();
   }, []);
+
+  useEffect(() => {
+    fetchCourseMember();
+  }, [url]);
 
   useEffect(() => {
     fetchCourseMemberByName();
@@ -241,8 +247,8 @@ const CourseDetail = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {courseMembers &&
-                    courseMembers.data.map((el, index) => (
+                  {courseMembers.data.results &&
+                    courseMembers.data.results.map((el, index) => (
                       <tr className="align-items-center" key={el.id}>
                         <th scope="row">{index + 1}</th>
                         <td>{`${el.last_name || "--"} ${
@@ -292,8 +298,14 @@ const CourseDetail = (props) => {
               </table>
 
               {/* Pagination */}
-              <div className="mt-5">
-                <Pagination />
+              <div className="mt-3">
+                {courseMembers.data && (
+                  <Pagination
+                    data={courseMembers.data}
+                    setNextUrl={setUrl}
+                    setPreviousUrl={setUrl}
+                  />
+                )}
               </div>
             </div>
           )}

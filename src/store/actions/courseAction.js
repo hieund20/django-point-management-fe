@@ -64,14 +64,11 @@ export const getCourseMembers = (payload) => async (dispatch) => {
 
     const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
     const { access_token, token_type } = outh2;
-    const res = await axios.get(
-      `https://django-point-management.herokuapp.com/course/${payload.id}/get_member/`,
-      {
-        headers: {
-          Authorization: `${token_type} ${access_token}`,
-        },
-      }
-    );
+    const res = await axios.get(payload.url, {
+      headers: {
+        Authorization: `${token_type} ${access_token}`,
+      },
+    });
 
     dispatch({
       type: "GET_COURSE_MEMBER_SUCCESS",
