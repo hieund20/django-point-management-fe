@@ -1,27 +1,32 @@
-import { Pagination } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Pagination from "../../sharedComponents/pagination";
 import { getCourseList } from "../../store/actions/courseAction";
+import "./style.scss";
 
 const MyCourses = (props) => {
   const dispatch = useDispatch();
   const courseList = useSelector((state) => state.courseList);
+  const { data } = courseList;
+  const [url, setUrl] = useState(
+    "https://django-point-management.herokuapp.com/course/"
+  );
 
   const fetchCourseList = () => {
-    dispatch(getCourseList());
+    dispatch(getCourseList({ url: url }));
   };
 
   useEffect(() => {
     fetchCourseList();
-  }, []);
+  }, [url]);
 
   return (
     <div className="my-courses main-container">
       <h3 className="mb-5">Các khóa học của tôi</h3>
-      <div className="d-flex align-items-center justify-content-between">
-        {courseList.data.results &&
-          courseList.data.results.map((el) => (
+      <div className="my-courses-container d-flex align-items-center">
+        {data.results &&
+          data.results.map((el) => (
             <Link
               to={`/my-course/${el.id}`}
               key={el.id}
@@ -32,7 +37,7 @@ const MyCourses = (props) => {
                 padding: 8,
                 boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
               }}
-              className="cursor-pointer"
+              className="cursor-pointer mb-5"
             >
               <div>
                 <img
@@ -51,8 +56,9 @@ const MyCourses = (props) => {
           ))}
       </div>
 
-      <div className="mt-5">
-        <Pagination count={5} shape="rounded" color="primary" />
+      {/* Pagination */}
+      <div className="mt-3">
+        <Pagination data={data} setNextUrl={setUrl} setPreviousUrl={setUrl} />
       </div>
     </div>
   );

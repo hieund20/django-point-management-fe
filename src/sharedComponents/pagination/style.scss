@@ -1,0 +1,26 @@
+.pagination {
+    & > button {
+        background-color: white;
+        border: 1px solid #5762fb;
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:nth-child(2) {
+            margin-left: 8px;
+        }
+
+        &.disabled {
+            background-color: lightgray;
+
+            &:hover {
+                background-color: lightgray;
+            }
+        }
+
+        &:hover {
+            background-color: #8991ff;
+        }
+    }
+}

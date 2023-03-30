@@ -1,9 +1,9 @@
-import { Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { accountIcon, editIcon, importFileIcon } from "../../assets/svg";
+import Pagination from "../../sharedComponents/pagination";
 import Tabs from "../../sharedComponents/tabs";
 import Toast from "../../sharedComponents/toast";
 import {
@@ -291,8 +291,9 @@ const CourseDetail = (props) => {
                 </tbody>
               </table>
 
+              {/* Pagination */}
               <div className="mt-5">
-                <Pagination count={5} shape="rounded" color="primary" />
+                <Pagination />
               </div>
             </div>
           )}
