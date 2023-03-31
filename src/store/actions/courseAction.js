@@ -8,8 +8,9 @@ export const getCourseList = (payload) => async (dispatch) => {
 
     // const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
     // const { access_token, token_type } = outh2;
+    const { url } = payload;
     const res = await axios.get(
-      payload.url
+      url
       // {
       //   headers: {
       //     Authorization: `${token_type} ${access_token}`,

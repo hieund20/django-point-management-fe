@@ -8,13 +8,18 @@ import "./style.scss";
 const MyCourses = (props) => {
   const dispatch = useDispatch();
   const courseList = useSelector((state) => state.courseList);
+  const currentUser = useSelector((state) => state.userDetail);
   const { data } = courseList;
   const [url, setUrl] = useState(
-    "https://django-point-management.herokuapp.com/course/"
+    `https://django-point-management.herokuapp.com/course/?page=1&user_id=${currentUser.data.id}`
   );
 
   const fetchCourseList = () => {
-    dispatch(getCourseList({ url: url }));
+    dispatch(
+      getCourseList({
+        url: url,
+      })
+    );
   };
 
   useEffect(() => {
