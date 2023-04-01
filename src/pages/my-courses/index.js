@@ -11,7 +11,9 @@ const MyCourses = (props) => {
   const currentUser = useSelector((state) => state.userDetail);
   const { data } = courseList;
   const [url, setUrl] = useState(
-    `https://django-point-management.herokuapp.com/course/?page=1&user_id=${currentUser.data.id}`
+    `https://django-point-management.herokuapp.com/course/?page=1&user_id=${
+      currentUser.data && currentUser.data.id
+    }`
   );
 
   const fetchCourseList = () => {

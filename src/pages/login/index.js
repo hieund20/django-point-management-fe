@@ -1,19 +1,92 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { CLIENT_ID, CLIENT_SECRET, GRANT_TYPE } from "../../config/constants";
 import Toast from "../../sharedComponents/toast";
-import { getUserDetail, loginUser } from "../../store/actions/userAction";
+import {
+  getUserDetail,
+  getUserDetailByEmail,
+  loginUser,
+} from "../../store/actions/userAction";
+//Firebase
+import { auth } from "../../firebase";
+import firebase from "../../firebase";
 import "./style.scss";
+import { googleLoginIcon } from "../../assets/svg";
 
 const Login = (props) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [toast, setToast] = useState(null);
 
+  //Handle Login with Google Account
+  const handleSignInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  };
+
+  const handleSignInWithFacebook = () => {
+    const provider = new firebase.auth.FacebookAuthProvider();
+
+    auth
+      .signInWithPopup(provider)
+      .then((result) => {
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const token = result.credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        const { _delegate } = user;
+        const { email } = _delegate;
+        // TODO: handle the signed in user
+        fetchUserLoginByEmail(email);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        console.log("errorCode", errorCode);
+        // The email of the user's account used.
+        const email = error.email;
+        console.log("email", email);
+        // The firebase.auth.AuthCredential type that was used.
+        const credential = error.credential;
+        console.log("credential", credential);
+        // TODO: handle errors
+        const errorMessage = error.message;
+        setToast(<Toast message={errorMessage} success={false} />);
+      });
+  };
+
+  const handleSignOut = () => {
+    auth.signOut();
+  };
+
+  const fetchUserLoginByEmail = async (email) => {
+    const res = await dispatch(getUserDetailByEmail({ email: email }));
+    if (!Object.keys(res.data).length) {
+      setToast(
+        <Toast
+          message={"Không tồn tại người dùng trong hệ thống"}
+          success={false}
+        />
+      );
+      handleSignOut();
+    } else {
+      setValue("username", email);
+      setToast(
+        <Toast
+          message={
+            "Tồn tại người dùng trong hệ thống, nhập mật khẩu để đăng nhập"
+          }
+          success={true}
+        />
+      );
+    }
+  };
+
+  //Handle login with normal method
   const onSubmit = async (data) => {
     const { username, password } = data;
 
@@ -60,6 +133,17 @@ const Login = (props) => {
       setErrorMessage("");
     }
   };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        const { _delegate } = user;
+        const { email } = _delegate;
+        fetchUserLoginByEmail(email);
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   return (
     <div className="login main-container">
@@ -110,9 +194,35 @@ const Login = (props) => {
             value={"Đăng nhập"}
           />
         </form>
+
         <p className="mt-3">
           Chưa có tài khoản <Link to={"/register"}>Đăng ký</Link>
         </p>
+
+        <div className="d-flex justify-content-between">
+          <button
+            className="mt-3 cursor-pointer btn-submit btn-google-login"
+            onClick={handleSignInWithGoogle}
+          >
+            Đăng nhập với Google
+            <img
+              src={googleLoginIcon}
+              alt="google-login"
+              width={25}
+              height={25}
+              className="ml-2"
+            />
+          </button>
+
+          <button
+            className="mt-3 cursor-pointer btn-submit btn-google-login"
+            onClick={handleSignInWithFacebook}
+          >
+            Đăng nhập với Facebook
+          </button>
+        </div>
+
+        {/* <button onClick={handleSignOut}>Logout</button> */}
       </div>
       {toast}
     </div>

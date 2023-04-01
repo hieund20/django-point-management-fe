@@ -215,3 +215,26 @@ export const getUserListByName = (payload) => async (dispatch) => {
     });
   }
 };
+
+export const getUserDetailByEmail = (payload) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "GET_USER_DETAIL_BY_EMAIL_LOADING",
+    });
+
+    const res = await axios.get(
+      `https://django-point-management.herokuapp.com/user/get_user_by_email/?email=${payload.email}`
+    );
+
+    dispatch({
+      type: "GET_USER_DETAIL_BY_EMAIL_SUCCESS",
+      payload: res.data,
+    });
+
+    return res;
+  } catch (e) {
+    dispatch({
+      type: "GET_USER_DETAIL_BY_EMAIL_FAIL",
+    });
+  }
+};

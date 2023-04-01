@@ -1,5 +1,6 @@
 import editIcon from "./edit-button-svgrepo-com.svg";
 import accountIcon from "./account.svg";
 import importFileIcon from "./import-file-svgrepo-com.svg";
+import googleLoginIcon from "./icons8-google.svg";
 
-export { editIcon, accountIcon, importFileIcon };
+export { editIcon, accountIcon, importFileIcon, googleLoginIcon };
