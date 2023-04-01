@@ -13,7 +13,7 @@ import {
 import { auth } from "../../firebase";
 import firebase from "../../firebase";
 import "./style.scss";
-import { googleLoginIcon } from "../../assets/svg";
+import { facebookLoginIcon, googleLoginIcon } from "../../assets/svg";
 
 const Login = (props) => {
   const { register, handleSubmit, setValue } = useForm();
@@ -219,6 +219,13 @@ const Login = (props) => {
             onClick={handleSignInWithFacebook}
           >
             Đăng nhập với Facebook
+            <img
+              src={facebookLoginIcon}
+              alt="google-login"
+              width={25}
+              height={25}
+              className="ml-2"
+            />
           </button>
         </div>
 
