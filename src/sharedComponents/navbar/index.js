@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { defaultAvatar } from "../../assets/image";
 import { logoutUser } from "../../store/actions/userAction";
+import { logo } from "../../assets/svg";
 import "./style.scss";
 
 const Navbar = (props) => {
@@ -22,7 +23,7 @@ const Navbar = (props) => {
   return (
     <div className="navbar-container">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <span className="navbar-brand">E-Point Management</span>
+        <img src={logo} alt="logo" width={50} height={50}/>
         <button
           className="navbar-toggler"
           type="button"

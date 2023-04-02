@@ -3,6 +3,7 @@ import accountIcon from "./account.svg";
 import importFileIcon from "./import-file-svgrepo-com.svg";
 import googleLoginIcon from "./icons8-google.svg";
 import facebookLoginIcon from "./icons8-facebook.svg";
+import logo from "./logo.svg";
 
 export {
   editIcon,
@@ -10,4 +11,5 @@ export {
   importFileIcon,
   googleLoginIcon,
   facebookLoginIcon,
+  logo
 };
