@@ -8,6 +8,7 @@ import {
   getForumPostListByCourseID,
   postForumPost,
 } from "../../store/actions/forumPostAction";
+import moment from "moment";
 import "./style.scss";
 
 const ForumPost = (props) => {
@@ -126,7 +127,7 @@ const ForumPost = (props) => {
             <Link to={`/forum-post-detail/${el.id}`}>
               <span>{el.title}</span>
             </Link>
-            <span>{el.created_date}</span>
+            <span>{moment(el.created_date).format("DD/MM/YYYY")}</span>
           </div>
         ))}
       {toast}

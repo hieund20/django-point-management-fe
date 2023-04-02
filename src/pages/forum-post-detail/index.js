@@ -11,6 +11,7 @@ import {
   getForumPostAnswerListByForumPostID,
   postForumAnswerPost,
 } from "../../store/actions/forumPostAnswerAction";
+import moment from "moment";
 import "./style.scss";
 
 const ForumPostDetail = (props) => {
@@ -70,8 +71,6 @@ const ForumPostDetail = (props) => {
     fetchForumAnswerByForumPostId();
   }, []);
 
-  console.log("forumPostAnswerList", forumPostAnswerList);
-
   return (
     <div className="forum-post-detail main-container">
       {data && (
@@ -79,7 +78,7 @@ const ForumPostDetail = (props) => {
           <div className="forum-post-question">
             <div className="d-flex justify-content-between">
               <h4>{data.title}</h4>
-              <span>{data.created_date}</span>
+              <span>{moment(data.created_date).format("DD/MM/YYYY")}</span>
             </div>
             <p>{data.body}</p>
 
@@ -131,7 +130,7 @@ const ForumPostDetail = (props) => {
           {forumPostAnswerList.data &&
             forumPostAnswerList.data.map((el, index) => (
               <div className="forum-post-answer mt-4">
-                <span>{el.created_date}</span>
+                <span>{moment(el.created_date).format("DD/MM/YYYY")}</span>
                 <p className="mt-3">{el.body}</p>
               </div>
             ))}
