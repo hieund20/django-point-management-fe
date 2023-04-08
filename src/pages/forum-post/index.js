@@ -58,6 +58,8 @@ const ForumPost = (props) => {
     }
   };
 
+  console.log("forumPostListByCourseId", forumPostListByCourseId);
+
   useEffect(() => {
     fetchForumPostListByCourseId();
   }, []);
@@ -73,7 +75,6 @@ const ForumPost = (props) => {
           Tạo bài đăng
         </button>
       </div>
-      <br></br>
 
       {isOpenCreate && (
         <div style={{ margin: "0 auto", width: "70%" }}>
@@ -118,18 +119,38 @@ const ForumPost = (props) => {
         </div>
       )}
 
-      {forumPostListByCourseId.data &&
-        forumPostListByCourseId.data.results.map((el) => (
-          <div
-            className="forum-content mt-4 d-flex justify-content-between"
-            key={el.id}
-          >
-            <Link to={`/forum-post-detail/${el.id}`}>
-              <span>{el.title}</span>
-            </Link>
-            <span>{moment(el.created_date).format("DD/MM/YYYY")}</span>
-          </div>
-        ))}
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">Thảo luận</th>
+            <th scope="col">Người khởi tạo</th>
+            <th scope="col">Ngày khởi tạo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {forumPostListByCourseId.data &&
+            forumPostListByCourseId.data.results.map((el) => (
+              <tr key={el.id}>
+                <td>
+                  {" "}
+                  <Link to={`/forum-post-detail/${el.id}`}>
+                    <span>{el.title}</span>
+                  </Link>
+                </td>
+                <td>
+                  <div className="d-flex align-items-center">
+                    <img src={el.user.avatar_url} alt="avatar" className="mr-2"/>
+                    <span>
+                      {el.user.last_name} {el.user.first_name}
+                    </span>
+                  </div>
+                </td>
+                <td>{moment(el.created_date).format("DD/MM/YYYY")}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+
       {toast}
     </div>
   );

@@ -77,7 +77,13 @@ const ForumPostDetail = (props) => {
         <>
           <div className="forum-post-question">
             <div className="d-flex justify-content-between">
-              <h4>{data.title}</h4>
+              <div className="d-flex align-items-center">
+                <h3 className="mr-3">{data.title} </h3>
+                <img src={data.user.avatar_url} alt="avatar" className="mr-3" />
+                <span>
+                  {data.user.last_name} {data.user.first_name}
+                </span>
+              </div>
               <span>{moment(data.created_date).format("DD/MM/YYYY")}</span>
             </div>
             <p>{data.body}</p>
@@ -130,7 +136,19 @@ const ForumPostDetail = (props) => {
           {forumPostAnswerList.data &&
             forumPostAnswerList.data.map((el, index) => (
               <div className="forum-post-answer mt-4">
-                <span>{moment(el.created_date).format("DD/MM/YYYY")}</span>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div className="d-flex align-items-center">
+                    <img
+                      src={el.user.avatar_url}
+                      alt="avatar"
+                      className="mr-2"
+                    />
+                    <span>
+                      {el.user.last_name} {el.user.first_name}
+                    </span>
+                  </div>
+                  <span>{moment(el.created_date).format("DD/MM/YYYY")}</span>
+                </div>
                 <p className="mt-3">{el.body}</p>
               </div>
             ))}

@@ -1,4 +1,8 @@
 .forum {
+  .forum-nav {
+    margin-bottom: 48px;
+  }
+
   .link-white-text {
     color: white;
     text-decoration: none;
@@ -8,7 +12,6 @@
   }
 
   .forum-content {
-    border-bottom: 1px solid lightgray;
     padding-bottom: 12px;
   }
 }
