@@ -263,6 +263,12 @@ const Register = (props) => {
                     <input
                       className="cursor-pointer"
                       type={"checkbox"}
+                      checked={
+                        courseListSelected.includes(el.id) ||
+                        data.results
+                          .map((item) => item.id)
+                          .includes(courseListSelected)
+                      }
                       onChange={() => handleSelectedCourse(el.id)}
                     />
                     &nbsp;
