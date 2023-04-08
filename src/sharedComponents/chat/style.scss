@@ -1,0 +1,13 @@
+.chat {
+    z-index: 9;
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+
+    &-icon {
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        background-color: #9097ff;
+    }
+}
