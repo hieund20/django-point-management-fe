@@ -9,5 +9,21 @@
         width: 60px;
         border-radius: 50%;
         background-color: #9097ff;
+        cursor: pointer;
+    }
+
+    &-expand {
+        height: 500px;
+        width: 350px;
+        border-radius: 12px;
+        background-color: white;
+        &-header {
+            height: 70px;
+            border-top-right-radius: 12px;
+            border-top-left-radius: 12px;
+            background-color: #9097ff;
+
+            padding-right: 20px;
+        }
     }
 }
