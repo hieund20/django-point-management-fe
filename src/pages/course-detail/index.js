@@ -200,40 +200,43 @@ const CourseDetail = (props) => {
                     }
                   />
                 </div>
+                {data.is_staff && (
+                  <>
+                    <div className="mr-0 ml-0">
+                      <input
+                        type="file"
+                        style={{ display: "none" }}
+                        onChange={(e) => setFile(e.target.files[0])}
+                        id="upload-file"
+                      />
+                      <label for="upload-file" className="mr-2 ml-5">
+                        Chọn file CSV
+                      </label>
+                      <button
+                        className="btn-green"
+                        onClick={() => importScoreCSV()}
+                      >
+                        Import bảng điểm
+                      </button>
+                    </div>
 
-                <div className="mr-0 ml-0">
-                  <input
-                    type="file"
-                    style={{ display: "none" }}
-                    onChange={(e) => setFile(e.target.files[0])}
-                    id="upload-file"
-                  />
-                  <label for="upload-file" className="mr-2 ml-5">
-                    Chọn file CSV
-                  </label>
-                  <button
-                    className="btn-green"
-                    onClick={() => importScoreCSV()}
-                  >
-                    Import bảng điểm
-                  </button>
-                </div>
-
-                <div className="mr-0 ml-2">
-                  <button
-                    onClick={() => onExportScoreToCSV()}
-                    className="btn-green"
-                  >
-                    Xuất điểm CSV
-                  </button>
-                  <button
-                    className="btn-green"
-                    style={{ marginLeft: 8 }}
-                    onClick={() => onExportScoreToPDF()}
-                  >
-                    Xuất điểm PDF
-                  </button>
-                </div>
+                    <div className="mr-0 ml-2">
+                      <button
+                        onClick={() => onExportScoreToCSV()}
+                        className="btn-green"
+                      >
+                        Xuất điểm CSV
+                      </button>
+                      <button
+                        className="btn-green"
+                        style={{ marginLeft: 8 }}
+                        onClick={() => onExportScoreToPDF()}
+                      >
+                        Xuất điểm PDF
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
 
               <table className="table">

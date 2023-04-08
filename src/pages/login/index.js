@@ -74,7 +74,8 @@ const Login = (props) => {
       );
       handleSignOut();
     } else {
-      setValue("username", email);
+      const {data} = res;
+      setValue("username", data.username);
       setToast(
         <Toast
           message={
@@ -148,7 +149,7 @@ const Login = (props) => {
   return (
     <div className="login main-container">
       <h3 className="text-center mb-5">Đăng nhập</h3>
-      <div style={{ width: "50%", margin: "0 auto" }}>
+      <div style={{ width: "70%", margin: "0 auto" }}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="row justify-content-between mb-3">
             <div className="col-4 text-left">

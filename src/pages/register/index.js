@@ -6,7 +6,10 @@ import { Link } from "react-router-dom";
 import { OU_EDU_EMAIL_REGEX } from "../../config/constants";
 import Toast from "../../sharedComponents/toast";
 import { getCourseList } from "../../store/actions/courseAction";
-import { registerUser } from "../../store/actions/userAction";
+import {
+  getUserDetailByEmail,
+  registerUser,
+} from "../../store/actions/userAction";
 import "./style.scss";
 
 const Register = (props) => {
@@ -68,6 +71,17 @@ const Register = (props) => {
     }
 
     if (!isInvalid) {
+      const response = await dispatch(getUserDetailByEmail({ email: email }));
+      if (Object.keys(response.data).length) {
+        setToast(
+          <Toast
+            message={"Địa chỉ email đã tồn tại trong hệ thống, vui lòng nhập địa chỉ Email khác"}
+            success={false}
+          />
+        );
+        return;
+      }
+
       const body = {
         last_name: last_name,
         first_name: first_name,
@@ -118,7 +132,7 @@ const Register = (props) => {
   return (
     <div className="register main-container">
       <h3 className="text-center mb-5">Đăng ký</h3>
-      <div style={{ width: "50%", margin: "0 auto" }}>
+      <div style={{ width: "70%", margin: "0 auto" }}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="row justify-content-between mb-3">
             <div className="col-4 text-left">

@@ -95,7 +95,6 @@ const ForumPostDetail = (props) => {
               >
                 Phúc đáp
               </span>
-              <span className="cursor-pointer like">Thích</span>
             </div>
           </div>
 
