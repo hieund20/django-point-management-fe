@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { closeIcon, messageIcon } from "../../assets/svg";
 import "./style.scss";
+import { sendMessageImg } from "../../assets/image";
 
 const Chat = (props) => {
   const [isExpandChat, setExpandChat] = useState(false);
@@ -25,7 +26,10 @@ const Chat = (props) => {
             />
           </div>
           <div className="chat-expand-body"></div>
-          <div className="chat-expand-footer"></div>
+          <div className="chat-expand-footer d-flex align-items-center justify-content-between">
+            <input type="text" placeholder="Nhập tin nhắn..." />
+            <img src={sendMessageImg} alt="send-message" />
+          </div>
         </div>
       )}
     </div>
