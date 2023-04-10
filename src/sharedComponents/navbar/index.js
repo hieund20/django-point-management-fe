@@ -74,8 +74,8 @@ const Navbar = (props) => {
                   <img
                     src={data.avatar_url ? data.avatar_url : defaultAvatar}
                     alt="avatar"
-                    width={20}
-                    height={20}
+                    width={30}
+                    height={30}
                     style={{ marginRight: 8, borderRadius: "50%" }}
                   />
                   {data.email}
