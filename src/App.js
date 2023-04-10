@@ -11,7 +11,6 @@ import UserDetail from "./pages/user-detail";
 import ForumPost from "./pages/forum-post";
 import ForumPostDetail from "./pages/forum-post-detail";
 import UserProfile from "./pages/user-profile";
-import Chat from "./sharedComponents/chat";
 
 function App() {
   return (
@@ -42,7 +41,6 @@ function App() {
           <Route exact path="/user-profile" element={<UserProfile />}></Route>
         </Routes>
       </Router>
-      <Chat/>
       <Footer />
     </div>
   );

@@ -29,6 +29,42 @@
             height: 380px;
             max-height: 380px;
             overflow-y: scroll;
+
+            padding-top: 16px;
+            padding-bottom: 16px;
+
+            & .message {
+                width: 180px;
+                margin-bottom: 16px;
+
+                & img {
+                    border-radius: 50%;
+                    border: 1px solid lightgray;
+                }
+
+                &.left {
+                    margin-left: 16px;
+                    margin-right: auto;
+
+                    & .content {
+                        padding: 8px;
+                        background-color: rgb(233, 230, 230);
+                        border-radius: 4px;
+                    }
+                }
+
+                &.right {
+                    margin-right: 16px;
+                    margin-left: auto;
+
+                    & .content {
+                        padding: 8px;
+                        background-color: #9097ff;
+                        color: white;
+                        border-radius: 4px;
+                    }
+                }
+            }
         }
         &-footer {
             height: 50px;
