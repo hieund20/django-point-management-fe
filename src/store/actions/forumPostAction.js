@@ -64,11 +64,10 @@ export const postForumPost = (payload) => async (dispatch) => {
 
     const outh2 = JSON.parse(localStorage.getItem("OAUTH2"));
     const { access_token, token_type } = outh2;
+    console.log(payload.body);
     const res = await axios.post(
       `https://django-point-management.herokuapp.com/forumPost/`,
-      {
-        ...payload.body,
-      },
+      payload.body,
       {
         headers: {
           Authorization: `${token_type} ${access_token}`,

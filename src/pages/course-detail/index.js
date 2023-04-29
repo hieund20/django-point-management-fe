@@ -17,6 +17,7 @@ import {
 } from "../../store/actions/scoreAction";
 import {
   getScoresByCourse,
+  getUserListById,
   getUserListByName,
 } from "../../store/actions/userAction";
 import "./style.scss";
@@ -35,6 +36,7 @@ const CourseDetail = (props) => {
   const [searchValue, setSearchValue] = useState({
     first_name: "",
     last_name: "",
+    user_id: "",
   });
   //Toast
   const [toast, setToast] = useState(null);
@@ -63,6 +65,16 @@ const CourseDetail = (props) => {
         course_id: id,
         first_name: first_name,
         last_name: last_name,
+      })
+    );
+  };
+
+  const fetchCourseMemberByID = () => {
+    const { user_id } = searchValue;
+    dispatch(
+      getUserListById({
+        course_id: id,
+        user_id: user_id,
       })
     );
   };
@@ -153,6 +165,7 @@ const CourseDetail = (props) => {
 
   useEffect(() => {
     fetchCourseMemberByName();
+    fetchCourseMemberByID();
   }, [searchValue]);
 
   return (
@@ -178,32 +191,7 @@ const CourseDetail = (props) => {
             {currentTab === 1 && (
               <div className="student-list-section">
                 <div className="d-flex mb-5 mt-5">
-                  <div
-                    className="d-flex"
-                    style={{ marginRight: 0, marginLeft: "auto" }}
-                  >
-                    <input
-                      placeholder="Họ sinh viên..."
-                      value={searchValue.last_name}
-                      onChange={(e) =>
-                        setSearchValue({
-                          ...searchValue,
-                          last_name: e.target.value,
-                        })
-                      }
-                    />
-                    <input
-                      className="ml-2"
-                      placeholder="Tên sinh viên..."
-                      value={searchValue.first_name}
-                      onChange={(e) =>
-                        setSearchValue({
-                          ...searchValue,
-                          first_name: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
+                  <div style={{ marginRight: 0, marginLeft: "auto" }}></div>
                   {data.is_staff && (
                     <>
                       <div className="mr-0 ml-0">
@@ -243,10 +231,47 @@ const CourseDetail = (props) => {
                   )}
                 </div>
 
+                <div className="row mb-4">
+                  <input
+                    className="col-2 form-control mr-3"
+                    placeholder="Mã số sinh viên..."
+                    value={searchValue.user_id}
+                    onChange={(e) =>
+                      setSearchValue({
+                        ...searchValue,
+                        user_id: e.target.value,
+                      })
+                    }
+                  />
+                  <input
+                    className="col-3 form-control mr-3"
+                    placeholder="Họ sinh viên..."
+                    value={searchValue.last_name}
+                    onChange={(e) =>
+                      setSearchValue({
+                        ...searchValue,
+                        last_name: e.target.value,
+                      })
+                    }
+                  />
+                  <input
+                    className="col-3 form-control"
+                    placeholder="Tên sinh viên..."
+                    value={searchValue.first_name}
+                    onChange={(e) =>
+                      setSearchValue({
+                        ...searchValue,
+                        first_name: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+
                 <table className="table">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
+                      <th scope="col">Mã số sinh viên</th>
                       <th scope="col">Họ và tên</th>
                       <th scope="col">Email</th>
                       <th scope="col">Vai trò</th>
@@ -258,6 +283,7 @@ const CourseDetail = (props) => {
                       courseMembers.data.results.map((el, index) => (
                         <tr className="align-items-center" key={el.id}>
                           <th scope="row">{index + 1}</th>
+                          <td>{el.id || "--"}</td>
                           <td>{`${el.last_name || "--"} ${
                             el.first_name || "--"
                           }`}</td>

@@ -139,7 +139,11 @@ const ForumPost = (props) => {
                 </td>
                 <td>
                   <div className="d-flex align-items-center">
-                    <img src={el.user.avatar_url} alt="avatar" className="mr-2"/>
+                    <img
+                      src={el.user.avatar_url}
+                      alt="avatar"
+                      className="mr-2"
+                    />
                     <span>
                       {el.user.last_name} {el.user.first_name}
                     </span>
